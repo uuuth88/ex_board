@@ -25,6 +25,13 @@
 	
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"/>
+		<property name="configLocation" value="classpath:com/uth/mapper/mapperConfig.xml"/>
+		<property name="mapperLocations">
+			<list>
+				<value>classpath:com/uth/mapper/BoardMapper.xml</value>
+				<value>classpath:com/uth/mapper/MemberMapper.xml</value>
+			</list>
+		</property>
 	</bean>	
 	
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
@@ -37,6 +44,6 @@
 	
 	<tx:annotation-driven/>
 	
-	
-	<mybatis-spring:scan base-package="com.uth.mapper"/>
+	<context:component-scan base-package="com.uth.membership.**.service"/>
+	<context:component-scan base-package="com.uth.membership.**.dao"/>
 </beans>

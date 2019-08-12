@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../includes/header.jsp" %>
-<!--header.html include 포함-->    
+<!-- member 작업 전 -->
+
+<!-- //테스트 후 삭제 -->
     <style>
         th, td{
             text-align: center;
@@ -19,106 +21,39 @@
           text-overflow: ellipsis;
         }
     </style>    
-    <div class="container board-container my-5 mx-auto">     
+    <div class="container board-container my-5 mx-auto">   
+    <c:set var="member" value="${loginmember }"/>  
         <table class="table table-hover">
             <thead>
               <tr>
                 <th scope="col">#no.</th>
                 <th scope="col">제목</th>
-                <th scope="col">글쓴이</th>
+                <th scope="col">작성자</th>
                 <th scope="col">날짜</th>
                 <th scope="col">조회수</th>
                 <th scope="col">추천</th>
               </tr>
             </thead>
             <tbody>
+            <c:forEach var="article" items="${articles }">
               <tr class="col-sm-12">
-                <td scope="row">1</td>
-                <!-- <td class="col-lg-6">안녕하세요? 가입인사 올립니다.</td> -->
+                <td scope="row"><c:out value="${article.bno }"/></td>
                 <td class="col-sm-6">
-                  <a href="read_article.html" id="title">안녕하세요???????????? 가입인사 올립니다.</a> 
+                  <a href="#" id="title"><c:out value="${article.title }"/></a> 
                 </td>
-                <td class="col-sm-2">뉴비</td>
-                <td class="col-sm-2">2019/08/01</td>
-                <td class="col-sm-1">20190801</td>
-                <td class="col-sm-1">13</td>
+                <td class="col-sm-2"><c:out value="${member.nickname}"/></td>
+                <td class="col-sm-2"><fmt:formatDate pattern="yyyy/MM/dd" value="${article.writeDate }"/></td>
+                <td class="col-sm-1"><c:out value="${article.viewCnt }"/></td>
+                <td class="col-sm-1"><c:out value="${article.likeCnt }"/></td>
               </tr>
-              <tr>
-                <td scope="row">2</td>
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
-              </tr>
-              <tr>
-                <td scope="row">3</td>
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
-              </tr>
-              <tr>
-                <td scope="row">4</td>
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
-              </tr>
-              <tr>
-                <td scope="row">5</td>
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
-              </tr>
-              <tr>
-                <td scope="row">6</td>
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
-              </tr>
-              <tr>
-                <td scope="row">7</td>
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
-              </tr>
-              <tr>
-                <td scope="row">8</td>
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
-              </tr>
-              <tr>
-                <td scope="row">9</td>
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
-              </tr>
-              <tr>
-                <td scope="row">10</td>
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
-                <td>Column content</td>
-              </tr>              
+            </c:forEach>
             </tbody>
           </table> 
           <button type="button" class="btn btn-outline-info btn-block" id="writeBtn" onclick="moveWritePage()">글쓰기</button>
     </div>
+    
+    
+<!-- 페이징 처리 -->    
     <div class="container container-bottom">
         <div class="row">
             <ul class="pagination mr-auto">
@@ -159,19 +94,12 @@
         </div>
     </div>
 
+
+<!-- 기능, 함수들 -->
 <script>
   function moveWritePage(){
     document.location.href="write_article.html";
   }
 </script>    
 <!-- footer.html -->
-    <footer class="my-3">
-        <i class="fab fa-github"></i>&nbsp;&nbsp;<a href="https://github.com/uuuth88" id="toGitNBlog" target="_blank">uuuth's github . </a>&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp; <i class="fas fa-blog"></i>&nbsp;&nbsp;<a href="https://uuuth.tistory.com/" id="toGitNBlog" target="_blank">uuuth's blog .</a>
-    </footer>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-</body>
-</html>
+<%@ include file="../includes/footer.jsp"%>

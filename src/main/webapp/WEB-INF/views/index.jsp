@@ -8,7 +8,7 @@
         <hr class="my-4">
         <p>지금 당장 회원가입 후 회원들과 친목을 도모하세요!</p>
         <p class="lead">
-            <a class="btn btn-primary btn-lg" href="member/register_form.html" role="button">회원가입</a>
+            <a class="btn btn-primary btn-lg" href="${contextPath }/member/registerForm.uth" role="button">회원가입</a>
         </p>
     </div>
 
