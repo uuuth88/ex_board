@@ -21,6 +21,23 @@
 		from tbl_board
 		order by bno desc
 	</select>
+	
+	<select id="read" resultMap="boardMap">
+		select BNO, TITLE, CONTENT, WRITE_DATE, MODIFY_DATE, LIKE_CNT, HATE_CNT, WRITER
+		from tbl_board
+		where bno = #{BNO}
+	</select>
+	
+	<update id="updateLike">
+		update tbl_board
+		set LIKE_CNT = LIKE_CNT + 1
+		where bno = #{BNO}
+	</update>
+	<update id="updateHate">
+		update tbl_board
+		set HATE_CNT = HATE_CNT + 1
+		where bno = #{BNO}
+	</update>
 </mapper>
 <!-- 
 <![CDATA[

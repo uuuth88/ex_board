@@ -20,4 +20,21 @@ public class BoardDaoImpl implements BoardDao {
 		return ss.selectList(NAMESPACE+".selectList");
 	}
 
+	@Override
+	public BoardVO getArticle(int bno) {
+		return ss.selectOne(NAMESPACE+".read", bno);
+	}
+
+	@Override
+	public void updateLike() {
+		ss.update(NAMESPACE+".updateLike");
+	}
+
+	@Override
+	public void updateHate() {
+		ss.update(NAMESPACE+".updateHate");
+		
+	}
+
+	
 }

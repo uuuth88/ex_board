@@ -18,4 +18,19 @@ public class BoardServiceImpl implements BoardService {
 		return dao.getList();
 	}
 
+	@Override
+	public BoardVO getArticle(int bno) {
+		return dao.getArticle(bno);
+	}
+
+	@Override
+	public void updateLike() {
+		dao.updateLike();
+	}
+
+	@Override
+	public void updateHate() {
+		dao.updateHate();
+	}
+
 }

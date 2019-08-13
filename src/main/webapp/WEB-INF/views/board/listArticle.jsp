@@ -39,12 +39,12 @@
               <tr class="col-sm-12">
                 <td scope="row"><c:out value="${article.bno }"/></td>
                 <td class="col-sm-6">
-                  <a href="#" id="title"><c:out value="${article.title }"/></a> 
+                  <a href="${contextPath}/board/readArticle.uth?bno=<c:out value='${article.bno }'/>" id="title"><c:out value="${article.title }"/></a> 
                 </td>
                 <td class="col-sm-2"><c:out value="${member.nickname}"/></td>
                 <td class="col-sm-2"><fmt:formatDate pattern="yyyy/MM/dd" value="${article.writeDate }"/></td>
                 <td class="col-sm-1"><c:out value="${article.viewCnt }"/></td>
-                <td class="col-sm-1"><c:out value="${article.likeCnt }"/></td>
+                <td class="col-sm-1"><c:out value="${article.likeCnt-article.hateCnt }"/></td>
               </tr>
             </c:forEach>
             </tbody>

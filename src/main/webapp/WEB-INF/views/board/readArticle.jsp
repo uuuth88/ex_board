@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../includes/header.jsp" %>
+<c:set value="${getArticle }" var="artcl"/>
 <!--/header.html-->
 <style>
     .i-thumbs{
@@ -17,47 +18,55 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">#글번호</label>
                 <div class="col-sm-10">
-                <input class="form-control" name="bno" value='글번호(bno) 여기에 jstl태그 작성' disabled>
+                <input class="form-control" name="bno" value='<c:out value="${artcl.bno }" />' disabled>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">제목</label>
                 <div class="col-sm-10">
-                <input class="form-control" name="title" value="제목(title)을 작성합니다<c:out value=''/>" disabled>
+                <input class="form-control" name="title" value='<c:out value="${artcl.title }" />' disabled>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">내용</label>
                 <div class="col-sm-10">
-                <textarea class="form-control" rows="10" name="content" disabled>(content)<c:out value="글 내용을 작성합니다.${board.content }"/></textarea>
+                <textarea class="form-control" rows="10" name="content" disabled><c:out value="${artcl.content }" /></textarea>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">작성자</label>
                 <div class="col-sm-10">
-                <input class="form-control" name="writer" value="작성자(writer)를 디비에서 갖고 옵니다." disabled>
+                <input class="form-control" name="writer" value='<c:out value="${loginmember.nickname }" />' disabled>
                 </div>
             </div> 
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">작성일</label>
                 <div class="col-sm-10">
-                <input class="form-control" name="writedate" value="작성일(writedate)을 디비에서 갖고 옵니다." disabled>
+                <input class="form-control" name="writedate" value='<fmt:formatDate pattern="yyyy/MM/dd" value="${artcl.writeDate }"/>' disabled>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">수정일</label>
                 <div class="col-sm-10">
-                <input class="form-control" name="modifydate" value="작성일(modifydate)을 디비에서 갖고 옵니다." disabled>
+                <input class="form-control" name="modifydate" value='<fmt:formatDate pattern="yyyy/MM/dd" value="${artcl.modifyDate }"/>' disabled>
                 </div>
             </div>    
             <!--작성자 이외의 화면-->                      
             <div class="form-group row">
                 <div class="col-sm-5"></div>
                 <div class="col-sm-2">
+                <form method="get" action="" class="countLH">
                     <div class="btn-group mx-auto my-2" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-info" onclick="alert('추천');">&nbsp;<i class="fas fa-thumbs-up" onclick="alert('추천');"></i> &nbsp;추천 &nbsp;0</button>
-                        <button type="button" class="btn btn-secondary" onclick="alert('비추천');"><i class="fas fa-thumbs-down" onclick="alert('비추천');"></i> 비추천 -0</button>
+                        <button type="button" class="btn btn-info" onclick="alert('추천');">&nbsp;
+                        	<i class="fas fa-thumbs-up" onclick="alert('추천');"></i> &nbsp;추천 &nbsp;<c:out value="${artcl.likeCnt }"/>
+                       	</button>
+                        <button type="button" class="btn btn-secondary" onclick="alert('비추천');">
+                        	<i class="fas fa-thumbs-down" onclick="alert('비추천');"></i> 비추천 -<c:out value="${artcl.hateCnt }"/>
+                       	</button>
                     </div>
+                    <input type="hidden" name="like" value="">
+                    <input type="hidden" name="hate" value="">
+                </form>
                 </div>
                 <div class="col-sm-5"></div>
             </div>

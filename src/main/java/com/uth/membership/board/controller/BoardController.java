@@ -6,8 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.uth.membership.board.model.BoardVO;
 import com.uth.membership.board.service.BoardService;
@@ -34,20 +34,35 @@ public class BoardController {
 		List<BoardVO> listArticles = new ArrayList<>();
 		
 		listArticles = service.getList();
-		// login member
+		
+		//---- login member
 		MemberVO member = new MemberVO();
 		member = memberService.getMember();
 		log.info("\n-------memberVO : "+member);
-		
 		model.addAttribute("loginmember", member);
+		//---- login member
 
 		model.addAttribute("articles", listArticles);
 		
 	}
+	
 	@GetMapping("/readArticle.uth")
-	public void readArticle() {
+	public void readArticle(@RequestParam("bno") int bno, Model model) {
+		log.info("\n----------readArticle.uth");
 		
+		BoardVO vo = new BoardVO();
+		vo = service.getArticle(bno);
+		
+		model.addAttribute("getArticle", vo);
+		
+		//---- login member
+		MemberVO member = new MemberVO();
+		member = memberService.getMember();
+		log.info("\n-------memberVO : "+member);
+		model.addAttribute("loginmember", member);
+		//---- login member
 	}
+	
 	@GetMapping("/writeArticle.uth")
 	public void writeArticle() {
 		
