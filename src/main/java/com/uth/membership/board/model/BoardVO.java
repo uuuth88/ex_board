@@ -15,6 +15,8 @@ public class BoardVO {
 	private int rplCnt;
 	private String writer;
 	
+	public BoardVO() {}
+	
 	public int getBno() {
 		return bno;
 	}

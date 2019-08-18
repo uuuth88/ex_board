@@ -28,16 +28,17 @@
 		where bno = #{BNO}
 	</select>
 	
-	<update id="updateLike">
+	<update id="updateLike" parameterType="int">
 		update tbl_board
 		set LIKE_CNT = LIKE_CNT + 1
 		where bno = #{BNO}
 	</update>
-	<update id="updateHate">
+	<update id="updateHate" parameterType="int">
 		update tbl_board
 		set HATE_CNT = HATE_CNT + 1
 		where bno = #{BNO}
 	</update>
+	
 </mapper>
 <!-- 
 <![CDATA[

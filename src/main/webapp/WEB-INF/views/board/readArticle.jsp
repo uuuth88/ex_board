@@ -55,21 +55,18 @@
             <div class="form-group row">
                 <div class="col-sm-5"></div>
                 <div class="col-sm-2">
-                <form method="get" action="" class="countLH">
                     <div class="btn-group mx-auto my-2" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-info" onclick="alert('추천');">&nbsp;
-                        	<i class="fas fa-thumbs-up" onclick="alert('추천');"></i> &nbsp;추천 &nbsp;<c:out value="${artcl.likeCnt }"/>
+                        <button type="button" id="likeBtn" class="btn btn-info" onclick="updateLike()">&nbsp;
+                        	<i class="fas fa-thumbs-up"></i> &nbsp;추천 &nbsp;<c:out value="${artcl.likeCnt }"/>
                        	</button>
-                        <button type="button" class="btn btn-secondary" onclick="alert('비추천');">
-                        	<i class="fas fa-thumbs-down" onclick="alert('비추천');"></i> 비추천 -<c:out value="${artcl.hateCnt }"/>
+                        <button type="button" id="hateBtn" class="btn btn-secondary" onclick="updateHate()">
+                        	<i class="fas fa-thumbs-down"></i> 비추천 -&nbsp;<c:out value="${artcl.hateCnt }"/>
                        	</button>
                     </div>
-                    <input type="hidden" name="like" value="">
-                    <input type="hidden" name="hate" value="">
-                </form>
                 </div>
                 <div class="col-sm-5"></div>
             </div>
+
             <!--글 작성자 화면-->
             <div class="form-group row">
                 <div class="col-sm-5"></div>
@@ -97,10 +94,11 @@
                 </div>   
                 <div class="col-sm-2 px-5 i-thumbs">
                     2019/11/11 23:11:11
-                    <small class="i-thumbs"><span onclick="alert('추천');"><i class="fas fa-thumbs-up"></i> 추천</span> 0 | <span onclick="alert('비추천');"><i class="fas fa-thumbs-down"></i> 비추천</span> -0</small>
+                    <small class="i-thumbs"><span id="replyLike" onclick="updateReplLike()"><i class="fas fa-thumbs-up"></i> 추천</span> | <span id="replyHate" onclick="updateReplHate()"><i class="fas fa-thumbs-down"></i> 비추천</span> </small>
                 </div>
             </div>
-            
+
+
 <ul>
     <li>
 <!--대댓글 영역-->            
@@ -160,19 +158,24 @@
 </div>
 <!--/모달창-->
 
-<!--js script-->
-<script>
-    // 글 수정페이지, 리스트 페이지로 이동하는 함수 스크립트
-    function moveModifyPage(){
-        document.location.href="modify_article.html";
-    }
-    function moveBoardList(){
-        document.location.href="list_article.html";
-    }
-</script>
 
+<!--브라우저상에서 추천기능구현 -->
+<script src="${contextPath }/resources/js/getXhrObj.js"></script>
+<script src="${contextPath }/resources/js/like_hate_update.js"></script>
+<script src="${contextPath }/resources/js/modal_btn.js"></script>
 <script>
-    // 모달창 버튼 만들기 스크립트
+//	본문 추천, 비추천 변수선언
+	var lcnt = '<c:out value="${artcl.likeCnt }"/>';
+	var lcnt2 = '<c:out value="${artcl.likeCnt }"/>';
+	var hcnt = '<c:out value="${artcl.hateCnt }"/>';
+	var hcnt2 = '<c:out value="${artcl.hateCnt }"/>';
+	var alreadyLikeClick = false;
+	var alreadyHateClick = false;
+	var likeBtn = document.getElementById("likeBtn");
+	var hateBnt = document.getElementById("hateBtn");
+	
+	
+// 	모달창 버튼 만들기 변수선언
     var modal = document.querySelector(".modal");
     var modalFooter = document.querySelector(".modal-footer");
 
@@ -184,62 +187,51 @@
     var modTextNode = document.createTextNode("수정");    
     var delTextNode = document.createTextNode("삭제");
     var closeTextNode = document.createTextNode("닫기");
-    var replyTextNode = document.createTextNode("댓글달기");    
+    var replyTextNode = document.createTextNode("댓글달기");  	
+</script>
+<script>
+//	본문 추천, 비추천 ajax 기능 구현
+	function updateLikeAjax(){
+	    xhr.onreadystatechange = function(){
+	        if(xhr.readyState===4 && xhr.status===200){
+				console.log('좋아요 추천...');
+	        }
+	    }
+	    xhr.open("put", "${contextPath}/commons/like/${artcl.bno}", "true");
+	    xhr.send();
+	}
+	function updateHateAjax(){
+	    xhr.onreadystatechange = function(){
+	        if(xhr.readyState===4 && xhr.status===200){
+				console.log('싫어요 추천...');
+	        }
+	    }
+	    xhr.open("put", "${contextPath}/commons/hate/${artcl.bno}", "true");
+	    xhr.send();
+	}
+</script>
+<!--js script-->
+<script>
 
-    function showModal(){
-        $(modal).modal("show");
-        //댓글 글쓴이일 경우 수정과 삭제하기 버튼 활성화
-        createModBtn();
-        createDelBtn();
-        createCloseBtn();
-        //글쓴이가 아닐 경우 추천과 비추천 버튼 활성화 & 대댓글 쓰기 기능 구현  
-        createReplyBtn();
-    }
 
-    function showModalInReReply(){
-        //대댓글 글쓴이일 경우 모달창은 수정하기와 삭제하기만 구현
-        //글쓴이가 아닐 경우 클릭 X 
-        $(modal).modal("show");
-        createModBtn();
-        createDelBtn();
-        createCloseBtn();
+    // 글 수정페이지, 리스트 페이지로 이동하는 함수 스크립트
+    function moveModifyPage(){
+        document.location.href="modify_article.html";
     }
-
-    function createReplyBtn(){
-        btnNode4.setAttribute("class","btn btn-success");
-        btnNode4.setAttribute("type","button");
-        btnNode4.appendChild(replyTextNode);
-        modalFooter.appendChild(btnNode4);
-    }
-    function createModBtn(){
-        btnNode.setAttribute("class", "btn btn-info");
-        btnNode.setAttribute("type","button");
-        btnNode.appendChild(modTextNode);
-        modalFooter.appendChild(btnNode);
-    }
-    function createDelBtn(){
-        btnNode2.setAttribute("class", "btn btn-primary");
-        btnNode2.setAttribute("type","button");
-        btnNode2.appendChild(delTextNode)
-        modalFooter.appendChild(btnNode2);
-    }
-    function createCloseBtn(){
-        btnNode3.setAttribute("type","button");
-        btnNode3.setAttribute("class","btn btn-secondary");
-        btnNode3.setAttribute("data-dismiss","modal");
-        btnNode3.appendChild(closeTextNode);
-        modalFooter.appendChild(btnNode3);
+    function moveBoardList(){
+        document.location.href="list_article.html";
     }
 </script>
 
+<script>
+  
+
+
+</script>
+
 <!--footer.html-->
-    <footer class="my-auto">
-        <i class="fab fa-github"></i>&nbsp;&nbsp;<a href="https://github.com/uuuth88" id="toGitNBlog" target="_blank">uuuth's github</a>&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp; <i class="fas fa-blog"></i>&nbsp;&nbsp;<a href="https://uuuth.tistory.com/" id="toGitNBlog" target="_blank">uuuth's blog</a>
-    </footer>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<%@ include file="../includes/footer.jsp" %>
+    
 </body>
-</html>    
+</html>
+<%@ include file="../includes/footer.jsp" %>

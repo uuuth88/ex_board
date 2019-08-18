@@ -26,13 +26,13 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public void updateLike() {
-		ss.update(NAMESPACE+".updateLike");
+	public int updateLike(int bno) {
+		return ss.update(NAMESPACE+".updateLike", bno);
 	}
 
 	@Override
-	public void updateHate() {
-		ss.update(NAMESPACE+".updateHate");
+	public int updateHate(int bno) {
+		return ss.update(NAMESPACE+".updateHate", bno);
 		
 	}
 

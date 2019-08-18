@@ -24,13 +24,13 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public void updateLike() {
-		dao.updateLike();
+	public int updateLike(int bno) {
+		return dao.updateLike(bno);
 	}
 
 	@Override
-	public void updateHate() {
-		dao.updateHate();
+	public int updateHate(int bno) {
+		return dao.updateHate(bno);
 	}
 
 }

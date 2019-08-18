@@ -3,17 +3,19 @@ package com.uth.membership.board.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.uth.membership.board.model.BoardVO;
 import com.uth.membership.board.service.BoardService;
 import com.uth.membership.member.model.MemberVO;
 import com.uth.membership.member.service.MemberService;
-import com.uth.membership.member.service.MemberServiceImpl;
 
 import lombok.extern.log4j.Log4j;
 
@@ -54,13 +56,13 @@ public class BoardController {
 		vo = service.getArticle(bno);
 		
 		model.addAttribute("getArticle", vo);
-		
 		//---- login member
 		MemberVO member = new MemberVO();
 		member = memberService.getMember();
 		log.info("\n-------memberVO : "+member);
 		model.addAttribute("loginmember", member);
 		//---- login member
+		
 	}
 	
 	@GetMapping("/writeArticle.uth")
@@ -71,5 +73,5 @@ public class BoardController {
 	public void modifyArticle() {
 		
 	}
-
+	
 }
