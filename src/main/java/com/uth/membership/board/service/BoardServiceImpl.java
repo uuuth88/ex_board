@@ -38,4 +38,9 @@ public class BoardServiceImpl implements BoardService {
 		dao.writeArticle(vo);
 	}
 
+	@Override
+	public int modifyArticle(BoardVO vo) {
+		return dao.modifyArticle(vo);
+	}
+
 }

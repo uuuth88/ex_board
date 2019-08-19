@@ -89,9 +89,26 @@ public class BoardController {
 		
 		return "redirect:/board/readArticle.uth?bno="+bno;
 	}
+	
 	@GetMapping("/modifyArticle.uth")
-	public void modifyArticle() {
+	public void modifyArticle(Model model, @RequestParam("bno")int bno) {
+
+		model.addAttribute("board", service.getArticle(bno));
 		
+		//---- login member
+		model.addAttribute("loginmember", member());
+		//---- login member
+	}
+	@PostMapping("/modifyArticle.uth")
+	public String modifyArticle(BoardVO vo) {
+		service.modifyArticle(vo);
+		
+		log.info("\n-- BoardVO : "+vo);
+		
+		int bno = vo.getBno();
+		log.info("\n-- 글번호 : "+bno);
+		
+		return "redirect:/board/readArticle.uth?bno="+bno;
 	}
 	
 }

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../includes/header.jsp" %>
+<c:set value="${board}" var="board"/>
 <!--/header.html-->
 <style>
     ul{
@@ -10,35 +11,35 @@
 <div class="wrapper mx-5 my-5">
     <div class="row">
         <div class="col-lg-12">
-        <form method="" action="">
+        <form method="post" action="/board/modifyArticle.uth">
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">#글번호</label>
                 <div class="col-sm-10">
-                <input class="form-control" name="bno" value='글번호(bno) 여기에 jstl태그 작성' disabled>
+                <input class="form-control" name="bno" value='<c:out value="${board.bno }"/>' disabled>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">제목</label>
                 <div class="col-sm-10">
-                <input type="text" class="form-control" name="title">
+                <input type="text" class="form-control" name="title" value="<c:out value='${board.title }'/>">
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">내용</label>
                 <div class="col-sm-10">
-                <textarea class="form-control" rows="10" name="content"></textarea>
+                <textarea class="form-control" rows="10" name="content">value="<c:out value='${board.content }'/>"</textarea>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">작성자</label>
                 <div class="col-sm-10">
-                <input class="form-control" name="writer" value="작성자(writer)를 디비에서 갖고 옵니다." disabled>
+                <input class="form-control" name="writer" value="<c:out value='${loginmember.nickname }'/>" disabled>
                 </div>
             </div> 
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">작성일</label>
                 <div class="col-sm-10">
-                <input class="form-control" name="writedate" value="작성일(writedate)을 디비에서 갖고 옵니다." disabled>
+                <input class="form-control" name="writedate" value="<fmt:formatDate pattern='yyyy/MM/dd' value='${board.writeDate }'/>" disabled>
                 </div>
             </div> 
             <div class="form-group row">
@@ -61,7 +62,7 @@
                 <div class="col-sm-5"></div>
                 <div class="col-sm-2">
                     <div class="btn-group mx-auto my-2" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-primary" onclick="">수정하기</button>
+                        <button type="submit" class="btn btn-primary">수정하기</button>
                         <button type="button" class="btn btn-secondary" onclick="moveBoardList()">목록으로</button>
                     </div>
                 </div>
@@ -75,11 +76,7 @@
 </div>    
 
 <!--js script-->
-<script>
-    function moveBoardList(){
-        document.location.href="list_article.html";
-    }
-</script>
+<script src="${contextPath }/resources/js/move_page.js"></script>
 
 <!--footer.html-->
 <%@ include file="../includes/footer.jsp" %>

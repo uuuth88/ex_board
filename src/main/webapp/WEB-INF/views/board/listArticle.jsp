@@ -96,11 +96,12 @@
 
 
 <!-- 기능, 함수들 -->
+<script src="${contextPath }/resources/js/move_page.js"></script>
 <script>
 //글쓰기 페이지로 이동
-  function moveWritePage(){
+/*   function moveWritePage(){
     document.location.href="<c:out value='${contextPath}'/>/board/writeArticle.uth";
-  }
+  } */
 </script>    
 <!-- footer.html -->
 <%@ include file="../includes/footer.jsp" %>

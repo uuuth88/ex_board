@@ -1,7 +1,5 @@
 package com.uth.membership.board.controller;
 
-import static org.junit.Assert.*;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,9 +30,8 @@ public class BoardControllerTest {
 	
 	@Test
 	public void test() throws Exception{
-		String result = mockMvc.perform(MockMvcRequestBuilders.post("/board/writeArticle.uth").param("title", "테스트 글 제목11")
-																					   		  .param("content", "테스트 글 내용11")
-																				   		  	  .param("writer", "test01@uth.com"))
+		String result = mockMvc.perform(MockMvcRequestBuilders.post("/board/modifyArticle.uth").param("title", "수정 컨트롤러 테스트")
+																					   		  .param("content", "수정 컨트롤러 테스트"))
 						.andReturn()
 						.getModelAndView()
 						.getViewName();

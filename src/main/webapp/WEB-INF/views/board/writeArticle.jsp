@@ -50,7 +50,6 @@
                 <div class="col-sm-5"></div>
                 <div class="col-sm-2">
                     <div class="btn-group mx-auto my-2" role="group" aria-label="Basic example">
-                        <!-- <button type="button" class="btn btn-primary" onclick="moveReadPage()">글작성</button> -->
                         <button type="submit" class="btn btn-primary">글작성</button>
                         <button type="button" class="btn btn-secondary" onclick="moveBoardList()">목록으로</button>
                     </div>
@@ -64,14 +63,7 @@
         </form>
     </div>
 </div>    
-<script>
-    function moveReadPage(){
-        document.forms["writeForm"].submit();
-    }
-    function moveBoardList(){
-        document.location.href="list_article.html";
-    }
-</script>
+<script src="${contextPath }/resources/js/movePage.js"></script>
 
 
 <!--footer.html-->

@@ -36,6 +36,12 @@
 		values (#{bno}, #{title}, #{content}, #{writer})
 	</insert>
 	
+	<update id="modify">
+		update tbl_board
+		set title = #{title}, content = #{content}, MODIFY_DATE = sysdate
+		where bno = #{bno}
+	</update>
+	
 	<update id="updateLike" parameterType="int">
 		update tbl_board
 		set LIKE_CNT = LIKE_CNT + 1

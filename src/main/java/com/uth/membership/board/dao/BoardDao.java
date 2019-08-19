@@ -12,4 +12,6 @@ public interface BoardDao {
 	public int updateHate(int bno);
 //	글 작성
 	public void writeArticle(BoardVO vo);
+//	글 수정
+	public int modifyArticle(BoardVO vo);
 }

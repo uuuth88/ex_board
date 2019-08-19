@@ -72,7 +72,7 @@
                 <div class="col-sm-5"></div>
                 <div class="col-sm-3">
                     <div class="btn-group mx-auto my-2" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-primary" onclick="moveModifyPage()">수정하기</button>
+                        <button type="button" class="btn btn-primary" onclick="moveModifyPage(<c:out value='${artcl.bno}'/>)">수정하기</button>
                         <button type="button" class="btn btn-outline-secondary" onclick="moveBoardList()">목록으로</button>
                         <button type="button" class="btn btn-outline-primary" onclick="alert('글을 삭제하시겠습니까?');">글 삭제</button>
                     </div>
@@ -211,15 +211,7 @@
 	}
 </script>
 <!--js script-->
-<script>
-    // 글 수정페이지, 리스트 페이지로 이동하는 함수 스크립트
-    function moveModifyPage(){
-        document.location.href="modify_article.html";
-    }
-    function moveBoardList(){
-        document.location.href="list_article.html";
-    }
-</script>
+<script src="${contextPath }/resources/js/move_page.js"></script>
 
 <!--footer.html-->
 <%@ include file="../includes/footer.jsp" %>
