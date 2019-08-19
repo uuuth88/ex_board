@@ -33,4 +33,9 @@ public class BoardServiceImpl implements BoardService {
 		return dao.updateHate(bno);
 	}
 
+	@Override
+	public void writeArticle(BoardVO vo) {
+		dao.writeArticle(vo);
+	}
+
 }

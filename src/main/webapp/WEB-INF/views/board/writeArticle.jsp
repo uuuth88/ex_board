@@ -17,7 +17,7 @@
 <div class="wrapper mx-5 my-5">
     <div class="row">
         <div class="col-lg-12">
-        <form method="" action="" enctype="multipart/form-data">
+        <form name="writeForm" method="post" action="/board/writeArticle.uth">
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">제목</label>
                 <div class="col-sm-10">
@@ -50,20 +50,23 @@
                 <div class="col-sm-5"></div>
                 <div class="col-sm-2">
                     <div class="btn-group mx-auto my-2" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-primary" onclick="moveReadPage()">글작성</button>
+                        <!-- <button type="button" class="btn btn-primary" onclick="moveReadPage()">글작성</button> -->
+                        <button type="submit" class="btn btn-primary">글작성</button>
                         <button type="button" class="btn btn-secondary" onclick="moveBoardList()">목록으로</button>
                     </div>
                 </div>
                 <div class="col-sm-5"></div>
             </div>
+            <input type="hidden" name="writer" value="<c:out value='${loginmember.email }'/>">
         </form>        
         </div>
         <form id="operForm" action="">
         </form>
     </div>
+</div>    
 <script>
     function moveReadPage(){
-        document.location.href="read_article.html";
+        document.forms["writeForm"].submit();
     }
     function moveBoardList(){
         document.location.href="list_article.html";

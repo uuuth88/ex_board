@@ -212,8 +212,6 @@
 </script>
 <!--js script-->
 <script>
-
-
     // 글 수정페이지, 리스트 페이지로 이동하는 함수 스크립트
     function moveModifyPage(){
         document.location.href="modify_article.html";
@@ -223,15 +221,8 @@
     }
 </script>
 
-<script>
-  
-
-
-</script>
-
 <!--footer.html-->
 <%@ include file="../includes/footer.jsp" %>
     
 </body>
 </html>
-<%@ include file="../includes/footer.jsp" %>

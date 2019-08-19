@@ -36,5 +36,10 @@ public class BoardDaoImpl implements BoardDao {
 		
 	}
 
+	@Override
+	public void writeArticle(BoardVO vo) {
+		ss.insert(NAMESPACE+".write", vo);
+	}
+
 	
 }

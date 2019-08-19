@@ -1,7 +1,9 @@
 package com.uth.membership.board.model;
 
 import java.util.Date;
+import org.springframework.stereotype.Component;
 
+@Component
 public class BoardVO {
 	
 	private int bno;
@@ -16,7 +18,7 @@ public class BoardVO {
 	private String writer;
 	
 	public BoardVO() {}
-	
+
 	public int getBno() {
 		return bno;
 	}

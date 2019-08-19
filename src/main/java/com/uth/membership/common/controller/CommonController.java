@@ -9,7 +9,7 @@ import com.uth.membership.board.service.BoardService;
 import lombok.extern.log4j.Log4j;
 
 @RestController
-@RequestMapping("/commons")
+@RequestMapping("/commons/")
 @Log4j
 public class CommonController {
 	@Autowired 

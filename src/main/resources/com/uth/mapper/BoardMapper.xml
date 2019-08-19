@@ -25,18 +25,26 @@
 	<select id="read" resultMap="boardMap">
 		select BNO, TITLE, CONTENT, WRITE_DATE, MODIFY_DATE, LIKE_CNT, HATE_CNT, WRITER
 		from tbl_board
-		where bno = #{BNO}
+		where bno = #{bno}
 	</select>
+	
+	<insert id="write">
+		<selectKey keyProperty="bno" resultType="int" order="BEFORE">
+			select seq_board.nextval from dual
+		</selectKey>
+		insert into tbl_board(bno, TITLE, CONTENT, WRITER)
+		values (#{bno}, #{title}, #{content}, #{writer})
+	</insert>
 	
 	<update id="updateLike" parameterType="int">
 		update tbl_board
 		set LIKE_CNT = LIKE_CNT + 1
-		where bno = #{BNO}
+		where bno = #{bno}
 	</update>
 	<update id="updateHate" parameterType="int">
 		update tbl_board
 		set HATE_CNT = HATE_CNT + 1
-		where bno = #{BNO}
+		where bno = #{bno}
 	</update>
 	
 </mapper>

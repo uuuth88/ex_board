@@ -11,6 +11,7 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.uth.membership.board.model.BoardVO;
 import com.uth.membership.board.service.BoardService;
@@ -20,7 +21,7 @@ import com.uth.membership.member.service.MemberService;
 import lombok.extern.log4j.Log4j;
 
 @Controller
-@RequestMapping("/board")
+@RequestMapping("/board/*")
 @Log4j
 public class BoardController {
 	
@@ -30,6 +31,12 @@ public class BoardController {
 	@Autowired
 	private MemberService memberService;
 	
+	public MemberVO member() {
+		MemberVO member = new MemberVO();
+		member = memberService.getMember();
+		return member;
+	}
+	
 	@GetMapping("/listArticle.uth")
 	public void listArticle(Model model) {
 		log.info("\n------------listArticle.uth");
@@ -38,10 +45,7 @@ public class BoardController {
 		listArticles = service.getList();
 		
 		//---- login member
-		MemberVO member = new MemberVO();
-		member = memberService.getMember();
-		log.info("\n-------memberVO : "+member);
-		model.addAttribute("loginmember", member);
+		model.addAttribute("loginmember", member());
 		//---- login member
 
 		model.addAttribute("articles", listArticles);
@@ -56,18 +60,34 @@ public class BoardController {
 		vo = service.getArticle(bno);
 		
 		model.addAttribute("getArticle", vo);
+		
 		//---- login member
-		MemberVO member = new MemberVO();
-		member = memberService.getMember();
-		log.info("\n-------memberVO : "+member);
-		model.addAttribute("loginmember", member);
+		model.addAttribute("loginmember", member());
 		//---- login member
 		
 	}
 	
 	@GetMapping("/writeArticle.uth")
-	public void writeArticle() {
+	public void writeArticle(Model model) {
 		
+		//---- login member
+		model.addAttribute("loginmember", member());
+		//---- login member
+		
+	}
+	@PostMapping("/writeArticle.uth")
+	public String writeArticle(BoardVO vo, Model model) {
+		log.info("\n---------- 포스트 방식 writeArticle.uth");
+		service.writeArticle(vo);
+		
+		int bno = vo.getBno();
+		log.info("\n-- 글번호 : "+bno);
+		
+		//---- login member
+		model.addAttribute("loginmember", member());
+		//---- login member
+		
+		return "redirect:/board/readArticle.uth?bno="+bno;
 	}
 	@GetMapping("/modifyArticle.uth")
 	public void modifyArticle() {

@@ -97,8 +97,9 @@
 
 <!-- 기능, 함수들 -->
 <script>
+//글쓰기 페이지로 이동
   function moveWritePage(){
-    document.location.href="write_article.html";
+    document.location.href="<c:out value='${contextPath}'/>/board/writeArticle.uth";
   }
 </script>    
 <!-- footer.html -->
