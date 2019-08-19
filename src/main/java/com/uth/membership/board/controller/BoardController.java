@@ -100,12 +100,10 @@ public class BoardController {
 		//---- login member
 	}
 	@PostMapping("/modifyArticle.uth")
-	public String modifyArticle(BoardVO vo) {
+	public String modifyArticle(BoardVO vo, @RequestParam("bno")int bno) {
+
 		service.modifyArticle(vo);
 		
-		log.info("\n-- BoardVO : "+vo);
-		
-		int bno = vo.getBno();
 		log.info("\n-- 글번호 : "+bno);
 		
 		return "redirect:/board/readArticle.uth?bno="+bno;

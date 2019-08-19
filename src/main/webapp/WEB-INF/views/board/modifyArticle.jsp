@@ -12,10 +12,13 @@
     <div class="row">
         <div class="col-lg-12">
         <form method="post" action="/board/modifyArticle.uth">
+        	<input type="hidden" name="bno" value="<c:out value='${board.bno }'/>">
+        	<input type="hidden" name="writer" value="<c:out value='${loginmember.nickname }'/>">
+        	<input type="hidden" name="writedate" value="<c:out value='${board.writeDate }'/>">
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">#글번호</label>
                 <div class="col-sm-10">
-                <input class="form-control" name="bno" value='<c:out value="${board.bno }"/>' disabled>
+                <input class="form-control" name="bno" value="<c:out value='${board.bno }'/>" disabled>
                 </div>
             </div>
             <div class="form-group row">
@@ -27,7 +30,7 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">내용</label>
                 <div class="col-sm-10">
-                <textarea class="form-control" rows="10" name="content">value="<c:out value='${board.content }'/>"</textarea>
+                <textarea class="form-control" rows="10" name="content"><c:out value='${board.content }'/></textarea>
                 </div>
             </div>
             <div class="form-group row">
@@ -45,7 +48,7 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label" for="exampleInputFile">파일 업로드</label>
                 <div class="col-sm-9">
-                    <input type="file" class="form-control-file" name="uploadFile" aria-describedby="fileHelp" multiple>
+                    <!-- <input type="file" class="form-control-file" name="uploadFile" aria-describedby="fileHelp" multiple> -->
                     <small id="fileHelp" class="form-text text-muted">exe,sh,zip,alz,jar 파일은 업로드할 수 없습니다.</small>
                 </div>
                 <div class="col-sm-1">
@@ -77,7 +80,6 @@
 
 <!--js script-->
 <script src="${contextPath }/resources/js/move_page.js"></script>
-
 <!--footer.html-->
 <%@ include file="../includes/footer.jsp" %>
 </body>

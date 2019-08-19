@@ -41,6 +41,7 @@ public class BoardServiceTest {
 		vo.setContent("수정 Test content");
 		
 		service.modifyArticle(vo);
+		log.info("\n-- bno : "+vo.getBno());
 		log.info("\n-- modify : "+service.getArticle(22));
 	}
 }
