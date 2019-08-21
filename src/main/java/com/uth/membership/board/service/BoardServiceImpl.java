@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.uth.membership.board.dao.BoardDao;
 import com.uth.membership.board.model.BoardVO;
+import com.uth.membership.common.model.Criteria;
 @Service
 public class BoardServiceImpl implements BoardService {
 
@@ -14,8 +15,8 @@ public class BoardServiceImpl implements BoardService {
 	private BoardDao dao;
 	
 	@Override
-	public List<BoardVO> getList() {
-		return dao.getList();
+	public List<BoardVO> getList(Criteria cri) {
+		return dao.getList(cri);
 	}
 
 	@Override
@@ -32,6 +33,11 @@ public class BoardServiceImpl implements BoardService {
 	public int updateHate(int bno) {
 		return dao.updateHate(bno);
 	}
+	
+	@Override
+	public int updateView(int bno) {
+		return dao.updateView(bno);
+	}
 
 	@Override
 	public void writeArticle(BoardVO vo) {
@@ -43,4 +49,14 @@ public class BoardServiceImpl implements BoardService {
 		return dao.modifyArticle(vo);
 	}
 
+	@Override
+	public int deleteArticle(int bno) {
+		return dao.deleteArticle(bno);
+	}
+
+	@Override
+	public int getTotalArticle(Criteria cri) {
+		return dao.getTotalArticle(cri);
+	}
+	
 }

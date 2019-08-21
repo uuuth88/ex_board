@@ -6,5 +6,6 @@
   	<typeAliases>
   		<typeAlias type="com.uth.membership.board.model.BoardVO" alias="boardVO"/>
   		<typeAlias type="com.uth.membership.member.model.MemberVO" alias="memberVO"/>
+  		<typeAlias type="com.uth.membership.common.model.Criteria" alias="criteria"/>
   	</typeAliases>
   </configuration>

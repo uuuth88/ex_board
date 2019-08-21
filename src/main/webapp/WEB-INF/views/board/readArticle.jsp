@@ -42,13 +42,13 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">작성일</label>
                 <div class="col-sm-10">
-                <input class="form-control" name="writedate" value='<fmt:formatDate pattern="yyyy/MM/dd" value="${artcl.writeDate }"/>' disabled>
+                <input class="form-control" name="writedate" value='<fmt:formatDate pattern="yyyy/MM/dd HH:mm:ss" value="${artcl.writeDate }"/>' disabled>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">수정일</label>
                 <div class="col-sm-10">
-                <input class="form-control" name="modifydate" value='<fmt:formatDate pattern="yyyy/MM/dd" value="${artcl.modifyDate }"/>' disabled>
+                <input class="form-control" name="modifydate" value='<fmt:formatDate pattern="yyyy/MM/dd HH:mm:ss" value="${artcl.modifyDate }"/>' disabled>
                 </div>
             </div>    
             <!--작성자 이외의 화면-->                      
@@ -72,14 +72,17 @@
                 <div class="col-sm-5"></div>
                 <div class="col-sm-3">
                     <div class="btn-group mx-auto my-2" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-primary" onclick="moveModifyPage(<c:out value='${artcl.bno}'/>)">수정하기</button>
-                        <button type="button" class="btn btn-outline-secondary" onclick="moveBoardList()">목록으로</button>
+                    	<button type="button" class="btn btn-primary modBtn">수정하기</button>
+                        <button type="button" class="btn btn-outline-secondary listBtn">목록으로</button>
                         <button type="button" class="btn btn-outline-primary" onclick="alert('글을 삭제하시겠습니까?');">글 삭제</button>
                     </div>
                 </div>
                 <div class="col-sm-4"></div>
             </div>            
-            <form id="operForm" action="">
+            <form id="pageForm" method="get" action="">
+            	<input type="hidden" name="bno" value="<c:out value='${artcl.bno }'/>">
+            	<input type="hidden" name="pageNo" value="<c:out value='${cri.pageNo }'/>">
+            	<input type="hidden" name="pageSize" value="<c:out value='${cri.pageSize }'/>">
             </form>
         </div>
     </div>
@@ -211,10 +214,38 @@
 	}
 </script>
 <!--js script-->
-<script src="${contextPath }/resources/js/move_page.js"></script>
 
 <!--footer.html-->
 <%@ include file="../includes/footer.jsp" %>
-    
+<script>
+$(document).ready(function() {
+	var pageForm = $("#pageForm");
+	var listBtn = $(".listBtn");
+	var modBtn = $(".modBtn");
+	
+	listBtn.on("click", function(){
+		pageForm.attr("action","/board/listArticle.uth");
+		var inputBno = $("input[name='bno]").clone();
+		var inputPageNo = $("input[name='pageNo']").clone();
+		var inputPageSize = $("input[name='pageSize']").clone();
+		
+		pageForm.empty();
+		pageForm.append(inputBno);
+		pageForm.append(inputPageNo);
+		pageForm.append(inputPageSize);
+		pageForm.submit();
+	});
+	
+	modBtn.on("click", function() {
+		pageForm.attr("action","/board/modifyArticle.uth");
+		var inputBno = $("input[name='bno]").clone();
+		var inputPageNo = $("input[name='pageNo']").clone();
+		var inputPageSize = $("input[name='pageSize']").clone();
+		
+		pageForm.append(inputBno);
+		pageForm.submit();
+	});
+});
+</script>    
 </body>
 </html>

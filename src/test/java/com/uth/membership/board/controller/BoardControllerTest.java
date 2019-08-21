@@ -27,15 +27,23 @@ public class BoardControllerTest {
 	public void setup() {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
 	}
-	
+//	수정 컨트롤러 테스트	
+//	@Test
+//	public void test() throws Exception{
+//		String result = mockMvc.perform(MockMvcRequestBuilders.post("/board/modifyArticle.uth").param("title", "수정 컨트롤러 테스트")
+//																					   		  .param("content", "수정 컨트롤러 테스트"))
+//						.andReturn()
+//						.getModelAndView()
+//						.getViewName();
+//		log.info(result);
+//	}
+//	페이징 컨트롤러 테스트
 	@Test
-	public void test() throws Exception{
-		String result = mockMvc.perform(MockMvcRequestBuilders.post("/board/modifyArticle.uth").param("title", "수정 컨트롤러 테스트")
-																					   		  .param("content", "수정 컨트롤러 테스트"))
-						.andReturn()
-						.getModelAndView()
-						.getViewName();
-		log.info(result);
+	public void test() {
+		try {
+			log.info(mockMvc.perform(MockMvcRequestBuilders.get("/board/listArticle.uth").param("pageNo", "7").param("pageSize", "30")).andReturn().getModelAndView().getModelMap());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-
 }

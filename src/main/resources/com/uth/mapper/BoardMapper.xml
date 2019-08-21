@@ -17,11 +17,21 @@
 	
 	
 	<select id="selectList" resultMap="boardMap">
-		select *
-		from tbl_board
-		order by bno desc
+	<![CDATA[
+	select *
+	from(
+		select BNO, TITLE, CONTENT, WRITE_DATE, WRITER
+		from (
+			select rownum rn, BNO, TITLE, CONTENT, WRITE_DATE, WRITER
+			from tbl_board
+			where rownum <= #{pageNo} * #{pageSize}
+			order by rn desc
+			 )
+		where rn > (#{pageNo}-1) * #{pageSize}
+		)
+	]]>
 	</select>
-	
+
 	<select id="read" resultMap="boardMap">
 		select BNO, TITLE, CONTENT, WRITE_DATE, MODIFY_DATE, LIKE_CNT, HATE_CNT, WRITER
 		from tbl_board
@@ -42,6 +52,11 @@
 		where bno = #{bno}
 	</update>
 	
+	<delete id="delete">
+		delete from tbl_board
+		where bno = #{bno}
+	</delete>
+	
 	<update id="updateLike" parameterType="int">
 		update tbl_board
 		set LIKE_CNT = LIKE_CNT + 1
@@ -52,7 +67,15 @@
 		set HATE_CNT = HATE_CNT + 1
 		where bno = #{bno}
 	</update>
+	<update id="updateView">
+		update tbl_board
+		set VIEW_CNT = VIEW_CNT + 1
+		where bno = #{bno}
+	</update>
 	
+	<select id="getTotalArticle" resultType="int">
+		select count(*) from tbl_board where bno > 0
+	</select>
 </mapper>
 <!-- 
 <![CDATA[

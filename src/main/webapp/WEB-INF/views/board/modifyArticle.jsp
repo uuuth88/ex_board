@@ -11,10 +11,12 @@
 <div class="wrapper mx-5 my-5">
     <div class="row">
         <div class="col-lg-12">
-        <form method="post" action="/board/modifyArticle.uth">
+        <form id="pageForm" method="get" action="">
         	<input type="hidden" name="bno" value="<c:out value='${board.bno }'/>">
         	<input type="hidden" name="writer" value="<c:out value='${loginmember.nickname }'/>">
         	<input type="hidden" name="writedate" value="<c:out value='${board.writeDate }'/>">
+        	<input type="hidden" name="pageNo" value="<c:out value='${cri.pageNo }'/>">
+        	<input type="hidden" name="pageSize" value="<c:out value='${cri.pageSize }'/>">
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">#글번호</label>
                 <div class="col-sm-10">
@@ -42,7 +44,7 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">작성일</label>
                 <div class="col-sm-10">
-                <input class="form-control" name="writedate" value="<fmt:formatDate pattern='yyyy/MM/dd' value='${board.writeDate }'/>" disabled>
+                <input class="form-control" name="writedate" value="<fmt:formatDate pattern='yyyy/MM/dd HH:mm:ss' value='${board.writeDate }'/>" disabled>
                 </div>
             </div> 
             <div class="form-group row">
@@ -65,8 +67,8 @@
                 <div class="col-sm-5"></div>
                 <div class="col-sm-2">
                     <div class="btn-group mx-auto my-2" role="group" aria-label="Basic example">
-                        <button type="submit" class="btn btn-primary">수정하기</button>
-                        <button type="button" class="btn btn-secondary" onclick="moveBoardList()">목록으로</button>
+                        <button type="button" class="btn btn-primary modBtn">수정하기</button>
+                        <button type="button" class="btn btn-secondary listBtn">목록으로</button>
                     </div>
                 </div>
                 <div class="col-sm-5"></div>
@@ -79,8 +81,38 @@
 </div>    
 
 <!--js script-->
-<script src="${contextPath }/resources/js/move_page.js"></script>
 <!--footer.html-->
 <%@ include file="../includes/footer.jsp" %>
+<script>
+$(document).ready(function() {
+	var pageForm = $("#pageForm");
+	var modBtn = $(".modBtn");
+	var listBtn = $(".listBtn");
+	
+	listBtn.on("click", function(e) {
+		pageForm.attr("action","/board/listArticle.uth");
+		var inputBno = $("input[name='bno]").clone();
+		var inputPageNo = $("input[name='pageNo']").clone();
+		var inputPageSize = $("input[name='pageSize']").clone();
+		
+		pageForm.empty();
+		pageForm.append(inputBno);
+		pageForm.append(inputPageNo);
+		pageForm.append(inputPageSize);
+		pageForm.submit();		
+	});
+	
+	modBtn.on("click", function(e) {
+		e.preventDefault();
+		pageForm.attr("method","post").attr("action","/board/modifyArticle.uth");
+		var inputBno = $("input[name='bno]").clone();
+		var inputPageNo = $("input[name='pageNo']").clone();
+		var inputPageSize = $("input[name='pageSize']").clone();
+		
+		pageForm.append(inputBno);
+		pageForm.submit();
+	});
+});
+</script>
 </body>
 </html>

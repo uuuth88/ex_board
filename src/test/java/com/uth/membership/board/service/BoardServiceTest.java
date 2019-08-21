@@ -1,5 +1,7 @@
 package com.uth.membership.board.service;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.uth.membership.board.model.BoardVO;
+import com.uth.membership.common.model.Criteria;
 
 import lombok.extern.log4j.Log4j;
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -34,14 +37,21 @@ public class BoardServiceTest {
 //		log.info("\n--"+vo);
 //	}
 //	글 수정 테스트
+//	@Test
+//	public void test() {
+//		BoardVO vo = service.getArticle(22);
+//		vo.setTitle("수정 Test title");
+//		vo.setContent("수정 Test content");
+//		
+//		service.modifyArticle(vo);
+//		log.info("\n-- bno : "+vo.getBno());
+//		log.info("\n-- modify : "+service.getArticle(22));
+//	}
+//	글 페이징 처리 테스트
 	@Test
 	public void test() {
-		BoardVO vo = service.getArticle(22);
-		vo.setTitle("수정 Test title");
-		vo.setContent("수정 Test content");
-		
-		service.modifyArticle(vo);
-		log.info("\n-- bno : "+vo.getBno());
-		log.info("\n-- modify : "+service.getArticle(22));
+		Criteria cri = new Criteria();
+		List<BoardVO> list = service.getList(cri);
+		list.forEach(board -> log.info(board));
 	}
 }

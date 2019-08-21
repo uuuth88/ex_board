@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../includes/header.jsp" %>
-<!-- member 작업 전 -->
 
-<!-- //테스트 후 삭제 -->
     <style>
         th, td{
             text-align: center;
@@ -19,6 +17,10 @@
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
+        }
+        .page-link.active{
+        	background-color: #D9230F;
+        	color: #fff;
         }
     </style>    
     <div class="container board-container my-5 mx-auto">   
@@ -39,7 +41,7 @@
               <tr class="col-sm-12">
                 <td scope="row"><c:out value="${article.bno }"/></td>
                 <td class="col-sm-6">
-                  <a href="${contextPath}/board/readArticle.uth?bno=<c:out value='${article.bno }'/>" id="title"><c:out value="${article.title }"/></a> 
+                  <a class="getArticle" href="<c:out value='${article.bno }'/>" id="title"><c:out value="${article.title }"/></a> 
                 </td>
                 <td class="col-sm-2"><c:out value="${member.nickname}"/></td>
                 <td class="col-sm-2"><fmt:formatDate pattern="yyyy/MM/dd" value="${article.writeDate }"/></td>
@@ -53,57 +55,65 @@
     </div>
     
     
-<!-- 페이징 처리 -->    
+ <!-- 페이징 처리 -->     
     <div class="container container-bottom">
         <div class="row">
             <ul class="pagination mr-auto">
-                <li class="page-item disabled">
-                <a class="page-link" href="#">&laquo;</a>
-                </li>
-                <li class="page-item active">
-                <a class="page-link" href="#">1</a>
-                </li>
+            <c:if test="${pageNav.prev }">
                 <li class="page-item">
-                <a class="page-link" href="#">2</a>
+                	<a class="page-link prev" href="${pageNav.start-1 }">&laquo;</a>
                 </li>
+            </c:if>
+            <c:forEach begin="${pageNav.start }" end="${pageNav.end }" var="pageNum">
                 <li class="page-item">
-                <a class="page-link" href="#">3</a>
+                	<a class="page-link ${pageNav.cri.pageNo == pageNum ? 'active':'' }" href="${pageNum }">${pageNum}</a>
                 </li>
+            </c:forEach>
+            <c:if test="${pageNav.next }">
                 <li class="page-item">
-                <a class="page-link" href="#">4</a>
+                	<a class="page-link next" href="${pageNav.end+1 }">&raquo;</a>
                 </li>
-                <li class="page-item">
-                <a class="page-link" href="#">5</a>
-                </li>
-                <li class="page-item">
-                <a class="page-link" href="#">&raquo;</a>
-                </li>
-            </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <div class="form-group">
-                    <select class="custom-select">
-                      <option selected="">--</option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
-                    </select>
-                  </div>
-                <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                <button class="btn btn-secondary my-2 my-sm-0" type="submit">검색</button>
-            </form>
+            </c:if>
+            </ul>  
+            <form id="pageForm" method="get" action="/board/listArticle.uth">
+        		<input type="hidden" name="pageNo" value="<c:out value='${pageNav.cri.pageNo }'/>">
+        		<input type="hidden" name="pageSize" value="<c:out value='${pageNav.cri.pageSize }'/>">
+        	</form>         
+            <form class="form-inline my-2 my-lg-0"> 
+                <div class="form-group"> 
+                    <select class="custom-select"> 
+                      <option selected="">--</option> 
+                      <option value="1">One</option> 
+                      <option value="2">Two</option> 
+                      <option value="3">Three</option> 
+                    </select> 
+                </div> 
+                <input class="form-control mr-sm-2" type="text" placeholder="Search"> 
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit">검색</button> 
+             </form>
         </div>
     </div>
 
 
-<!-- 기능, 함수들 -->
+<!--  기능, 함수들  -->
 <script src="${contextPath }/resources/js/move_page.js"></script>
-<script>
-//글쓰기 페이지로 이동
-/*   function moveWritePage(){
-    document.location.href="<c:out value='${contextPath}'/>/board/writeArticle.uth";
-  } */
-</script>    
-<!-- footer.html -->
+<!--  footer.html --> 
 <%@ include file="../includes/footer.jsp" %>
+<script>
+$(document).ready(function(){
+	var pageForm = $("#pageForm");
+	$(".page-item a").on("click", function(e){
+		e.preventDefault();
+		pageForm.find("input[name='pageNo']").val($(this).attr("href"));
+		pageForm.submit();
+	});
+	$(".getArticle").on("click",function(e){
+		e.preventDefault();
+		pageForm.append("<input type='hidden' name='bno' value='"+$(this).attr("href")+"'>");
+		pageForm.attr("action","/board/readArticle.uth");
+		pageForm.submit();
+	});
+}); 
+</script>
 </body>
 </html>
