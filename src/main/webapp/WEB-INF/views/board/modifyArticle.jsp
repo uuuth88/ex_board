@@ -17,6 +17,8 @@
         	<input type="hidden" name="writedate" value="<c:out value='${board.writeDate }'/>">
         	<input type="hidden" name="pageNo" value="<c:out value='${cri.pageNo }'/>">
         	<input type="hidden" name="pageSize" value="<c:out value='${cri.pageSize }'/>">
+      	    <input type="hidden" name="key" value="<c:out value='${cri.key }'/>">
+       		<input type="hidden" name="word" value="<c:out value='${cri.word }'/>">
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">#글번호</label>
                 <div class="col-sm-10">
@@ -94,11 +96,16 @@ $(document).ready(function() {
 		var inputBno = $("input[name='bno]").clone();
 		var inputPageNo = $("input[name='pageNo']").clone();
 		var inputPageSize = $("input[name='pageSize']").clone();
+		var inputKey = $("input[name='key']").clone();
+		var inputWord = $("input[name='word']").clone();
 		
 		pageForm.empty();
 		pageForm.append(inputBno);
 		pageForm.append(inputPageNo);
 		pageForm.append(inputPageSize);
+		pageForm.append(inputKey);
+		pageForm.append(inputWord);
+		
 		pageForm.submit();		
 	});
 	
@@ -108,8 +115,15 @@ $(document).ready(function() {
 		var inputBno = $("input[name='bno]").clone();
 		var inputPageNo = $("input[name='pageNo']").clone();
 		var inputPageSize = $("input[name='pageSize']").clone();
+		var inputKey = $("input[name='key']").clone();
+		var inputWord = $("input[name='word']").clone();
 		
 		pageForm.append(inputBno);
+		pageForm.append(inputPageNo);
+		pageForm.append(inputPageSize);
+		pageForm.append(inputKey);
+		pageForm.append(inputWord);
+		
 		pageForm.submit();
 	});
 });

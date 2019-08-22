@@ -83,6 +83,8 @@
             	<input type="hidden" name="bno" value="<c:out value='${artcl.bno }'/>">
             	<input type="hidden" name="pageNo" value="<c:out value='${cri.pageNo }'/>">
             	<input type="hidden" name="pageSize" value="<c:out value='${cri.pageSize }'/>">
+        	    <input type="hidden" name="key" value="<c:out value='${cri.key }'/>">
+        		<input type="hidden" name="word" value="<c:out value='${cri.word }'/>">
             </form>
         </div>
     </div>
@@ -228,11 +230,16 @@ $(document).ready(function() {
 		var inputBno = $("input[name='bno]").clone();
 		var inputPageNo = $("input[name='pageNo']").clone();
 		var inputPageSize = $("input[name='pageSize']").clone();
+		var inputKey = $("input[name='key']").clone();
+		var inputWord = $("input[name='word']").clone();
 		
 		pageForm.empty();
 		pageForm.append(inputBno);
 		pageForm.append(inputPageNo);
 		pageForm.append(inputPageSize);
+		pageForm.append(inputKey);
+		pageForm.append(inputWord);
+		
 		pageForm.submit();
 	});
 	

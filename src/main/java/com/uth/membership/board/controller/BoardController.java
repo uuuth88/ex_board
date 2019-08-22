@@ -111,6 +111,8 @@ public class BoardController {
 		
 		reAttr.addAttribute("pageNo", cri.getPageNo());
 		reAttr.addAttribute("pageSize", cri.getPageSize());
+		reAttr.addAttribute("key", cri.getKey());
+		reAttr.addAttribute("word", cri.getWord());
 		
 		log.info("\n-- 글번호 : "+bno);
 		
