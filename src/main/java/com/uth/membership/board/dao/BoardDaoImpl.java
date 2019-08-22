@@ -20,6 +20,11 @@ public class BoardDaoImpl implements BoardDao {
 	public List<BoardVO> getList(Criteria cri) {
 		return ss.selectList(NAMESPACE+".selectList", cri);
 	}
+	
+	@Override
+	public int getTotalArticle(Criteria cri) {
+		return ss.selectOne(NAMESPACE+".getTotalArticle", cri);
+	}
 
 	@Override
 	public BoardVO getArticle(int bno) {
@@ -55,11 +60,6 @@ public class BoardDaoImpl implements BoardDao {
 	@Override
 	public int deleteArticle(int bno) {
 		return ss.delete(NAMESPACE+".delete", bno);
-	}
-
-	@Override
-	public int getTotalArticle(Criteria cri) {
-		return ss.selectOne(NAMESPACE+".getTotalArticle", cri);
 	}
 
 

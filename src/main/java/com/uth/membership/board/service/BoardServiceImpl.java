@@ -20,6 +20,11 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
+	public int getTotalArticle(Criteria cri) {
+		return dao.getTotalArticle(cri);
+	}
+	
+	@Override
 	public BoardVO getArticle(int bno) {
 		return dao.getArticle(bno);
 	}
@@ -54,9 +59,5 @@ public class BoardServiceImpl implements BoardService {
 		return dao.deleteArticle(bno);
 	}
 
-	@Override
-	public int getTotalArticle(Criteria cri) {
-		return dao.getTotalArticle(cri);
-	}
 	
 }

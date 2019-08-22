@@ -48,9 +48,19 @@ public class BoardServiceTest {
 //		log.info("\n-- modify : "+service.getArticle(22));
 //	}
 //	글 페이징 처리 테스트
+//	@Test
+//	public void test() {
+//		Criteria cri = new Criteria();
+//		List<BoardVO> list = service.getList(cri);
+//		list.forEach(board -> log.info(board));
+//	}
+//	검색어 처리 테스트
 	@Test
 	public void test() {
 		Criteria cri = new Criteria();
+		cri.setKey("N");
+		cri.setWord("테스");
+		
 		List<BoardVO> list = service.getList(cri);
 		list.forEach(board -> log.info(board));
 	}

@@ -15,23 +15,44 @@
         <result property="writer" column="WRITER" />
 	</resultMap> 
 	
+	<sql id="cri">
+		<trim prefix="(" suffix=") AND " prefixOverrides="OR">
+			<foreach collection="keyArr" item="key">
+				<trim prefix="OR">
+					<choose>
+						<when test="key == 'T'.toString()">
+							b.TITLE like '%'||#{word}||'%'
+						</when>
+						<when test="key == 'C'.toString()">
+							b.CONTENT like '%'||#{word}||'%'
+						</when>
+						<when test="key == 'N'.toString()">
+							m.NICKNAME like '%'||#{word}||'%'
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+	</sql>
 	
 	<select id="selectList" resultMap="boardMap">
 	<![CDATA[
-	select *
-	from(
-		select BNO, TITLE, CONTENT, WRITE_DATE, WRITER
+		select BNO, TITLE, CONTENT, WRITE_DATE, NICKNAME
 		from (
-			select rownum rn, BNO, TITLE, CONTENT, WRITE_DATE, WRITER
-			from tbl_board
-			where rownum <= #{pageNo} * #{pageSize}
-			order by rn desc
-			 )
-		where rn > (#{pageNo}-1) * #{pageSize}
-		)
+			select
+				rownum rn, b.BNO, b.TITLE, b.CONTENT, b.WRITE_DATE, m.NICKNAME
+			from tbl_board b left join tbl_member m on b.WRITER = m.EMAIL
+			where 
 	]]>
+	<include refid="cri"></include>
+	<![CDATA[
+			rownum <= #{pageNo} * #{pageSize}
+			order by bno desc
+			)
+		where rn > (#{pageNo}-1) * #{pageSize}
+	]]>				
 	</select>
-
+	
 	<select id="read" resultMap="boardMap">
 		select BNO, TITLE, CONTENT, WRITE_DATE, MODIFY_DATE, LIKE_CNT, HATE_CNT, WRITER
 		from tbl_board
@@ -74,7 +95,10 @@
 	</update>
 	
 	<select id="getTotalArticle" resultType="int">
-		select count(*) from tbl_board where bno > 0
+		select count(*) from tbl_board
+		where
+		<include refid="cri"></include>
+		bno > 0
 	</select>
 </mapper>
 <!-- 

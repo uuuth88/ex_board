@@ -37,7 +37,7 @@
             <div class="collapse navbar-collapse" id="navbarColor03">
                 <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="${contextPaht }/index.uth">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="${contextPaht }/index.uth">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="${contextPaht }/board/listArticle.uth">게시판</a>
