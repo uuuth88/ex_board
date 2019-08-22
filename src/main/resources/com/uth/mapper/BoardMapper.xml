@@ -95,7 +95,8 @@
 	</update>
 	
 	<select id="getTotalArticle" resultType="int">
-		select count(*) from tbl_board
+		select count(*) 
+		from tbl_board b left join tbl_member m on b.writer = m.email
 		where
 		<include refid="cri"></include>
 		bno > 0

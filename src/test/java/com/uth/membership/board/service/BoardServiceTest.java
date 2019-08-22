@@ -58,8 +58,8 @@ public class BoardServiceTest {
 	@Test
 	public void test() {
 		Criteria cri = new Criteria();
-		cri.setKey("N");
-		cri.setWord("테스");
+		cri.setKey("C");
+		cri.setWord("처리");
 		
 		List<BoardVO> list = service.getList(cri);
 		list.forEach(board -> log.info(board));

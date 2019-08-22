@@ -57,7 +57,7 @@
     
  <!-- 페이징 처리 -->     
     <div class="container container-bottom">
-        <div class="row">
+        <div class="row mx-auto">
             <ul class="pagination mr-auto">
             <c:if test="${pageNav.prev }">
                 <li class="page-item">
@@ -78,18 +78,25 @@
             <form id="pageForm" method="get" action="/board/listArticle.uth">
         		<input type="hidden" name="pageNo" value="<c:out value='${pageNav.cri.pageNo }'/>">
         		<input type="hidden" name="pageSize" value="<c:out value='${pageNav.cri.pageSize }'/>">
+        		<input type="hidden" name="key" value="<c:out value='${pageNav.cri.key }'/>">
+        		<input type="hidden" name="word" value="<c:out value='${pageNav.cri.word }'/>">
         	</form>         
-            <form class="form-inline my-2 my-lg-0"> 
-                <div class="form-group"> 
-                    <select class="custom-select"> 
-                      <option selected="">--</option> 
-                      <option value="1">One</option> 
-                      <option value="2">Two</option> 
-                      <option value="3">Three</option> 
-                    </select> 
-                </div> 
-                <input class="form-control mr-sm-2" type="text" placeholder="Search"> 
-                <button class="btn btn-secondary my-2 my-sm-0" type="submit">검색</button> 
+            <form id="searchForm" method="get" action="/board/listArticle.uth" class="col-lg-6"> 
+            	<div class="form-group row col-lg-12 mx-5">
+                    <select class="custom-select col-lg-3 mx-1" name="key"> 
+                      <option value="" <c:out value="${pageNav.cri.key eq null ? 'selected' : '' }"/>>--</option> 
+                      <option value="T" <c:out value="${pageNav.cri.key eq 'T' ? 'selected' : '' }"/>>제목</option> 
+                      <option value="C" <c:out value="${pageNav.cri.key eq 'C' ? 'selected' : '' }"/>>내용</option> 
+                      <option value="N" <c:out value="${pageNav.cri.key eq 'N' ? 'selected' : '' }"/>>작성자</option>
+                      <option value="TC" <c:out value="${pageNav.cri.key eq 'TC' ? 'selected' : '' }"/>>제목+내용</option> 
+                      <option value="TN" <c:out value="${pageNav.cri.key eq 'TN' ? 'selected' : '' }"/>>제목+작성자</option> 
+                      <option value="TCN" <c:out value="${pageNav.cri.key eq 'TCN' ? 'selected' : '' }"/>>모두</option>
+                    </select>
+                <input class="form-control mr-lg-2 col-lg-6" type="text" placeholder="Search" name="word" value="<c:out value='${pageNav.cri.word }'/>">
+                <input type="hidden" name="pageNo" value="${pageNav.cri.pageNo }"> 
+                <input type="hidden" name="pageSize" value="${pageNav.cri.pageSize }"> 
+                <button id="searchBtn" class="btn btn-secondary my-2 my-sm-0 col-lg-2" type="submit">검색</button> 
+                </div>    
              </form>
         </div>
     </div>
@@ -101,6 +108,7 @@
 <%@ include file="../includes/footer.jsp" %>
 <script>
 $(document).ready(function(){
+	/* 페이징 처리 */	
 	var pageForm = $("#pageForm");
 	$(".page-item a").on("click", function(e){
 		e.preventDefault();
@@ -112,6 +120,23 @@ $(document).ready(function(){
 		pageForm.append("<input type='hidden' name='bno' value='"+$(this).attr("href")+"'>");
 		pageForm.attr("action","/board/readArticle.uth");
 		pageForm.submit();
+	});
+	/* 검색 처리 */
+	var searchForm = $("#searchForm");
+	$("#searchBtn").on("click", function(e) {
+		if(!searchForm.find("option:selected").val()){
+			alert('검색 조건을 선택하세요');
+			return false;
+		}
+		if(!searchForm.find("input[name='word']").val()){
+			alert('검색어를 입력하세요');
+			return false;
+		}
+		
+		searchForm.find("input[name='pageNo']").val("1");
+		e.preventDefault();
+		
+		searchForm.submit();
 	});
 }); 
 </script>
