@@ -109,8 +109,7 @@ $(document).ready(function() {
 		pageForm.submit();		
 	});
 	
-	modBtn.on("click", function(e) {
-		e.preventDefault();
+	modBtn.on("click", function() {
 		pageForm.attr("method","post").attr("action","/board/modifyArticle.uth");
 		var inputBno = $("input[name='bno]").clone();
 		var inputPageNo = $("input[name='pageNo']").clone();
@@ -119,10 +118,6 @@ $(document).ready(function() {
 		var inputWord = $("input[name='word']").clone();
 		
 		pageForm.append(inputBno);
-		pageForm.append(inputPageNo);
-		pageForm.append(inputPageSize);
-		pageForm.append(inputKey);
-		pageForm.append(inputWord);
 		
 		pageForm.submit();
 	});

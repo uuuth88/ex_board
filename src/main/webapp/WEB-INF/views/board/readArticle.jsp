@@ -88,56 +88,128 @@
             </form>
         </div>
     </div>
+    
     <hr>
-    <!-- 댓글 영역 -->
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label"><i class="fas fa-user"></i> 댓글러(replyer)</label>
-                <div class="col-sm-8">
-                <textarea class="form-control" name="replyContent" rows="1" readonly onclick="showModal();">댓글 내용을 표시합니다. 클릭하면 모달창으로 대댓글을 달거나 추천, 비추천 기능을 넣습니다.</textarea>
-                </div>   
-                <div class="col-sm-2 px-5 i-thumbs">
-                    2019/11/11 23:11:11
-                    <small class="i-thumbs"><span id="replyLike" onclick="updateReplLike()"><i class="fas fa-thumbs-up"></i> 추천</span> | <span id="replyHate" onclick="updateReplHate()"><i class="fas fa-thumbs-down"></i> 비추천</span> </small>
-                </div>
-            </div>
+    
+<!-- 댓글 영역 -->
+<div class="row">
+	<div class="col-lg-12 replyDiv">
+		<ul class="replyul">
+			<li class="replyno">
+				<div class="row">
+<!--댓글작성자-->    
+					<div class="replyer col-lg-2">
+						<label class="col-form-label"><i class="fas fa-user"></i>&nbsp;&nbsp;
+							<c:out value="${loginmember.nickname }" />
+						</label>
+					</div>
+<!--댓글 내용-->
+					<div class="replycontent col-lg-8">
+						<textarea class="form-control" name="replyContent" rows="1" readonly onclick="showModal();">###</textarea>
+					</div>
+<!--댓글작성일,추천,비추천-->
+					<div class="replydate col-lg-2">
+						<label class="col-form-label"><small>
+							<fmt:formatDate pattern="yyyy/MM/dd HH:mm:ss" value="${artcl.writeDate }"/>
+						</small></label><br>
+						<small>
+							<span id="replyLike" onclick="updateReplLike()"><i class="fas fa-thumbs-up"></i> 추천 </span>0 | 
+							<span id="replyHate" onclick="updateReplHate()"><i class="fas fa-thumbs-down"></i> 비추천</span>0
+						</small>
+					</div>
+				</div>
+				<br>
+<!--대댓글-->   
+				<ul>
+					<li>
+					<div class="row">
+<!--대댓글작성자-->    
+						<div class="replyer col-lg-2"><i class="fas fa-angle-right"></i>&nbsp;&nbsp;
+							<label class="col-form-label"><i class="fas fa-user"></i>&nbsp;
+								<c:out value="${loginmember.nickname }" />
+							</label>
+						</div>
+<!--대댓글 내용-->
+						<div class="replycontent col-lg-8">
+							<textarea class="form-control" name="replyContent" rows="1" readonly onclick="showModal();">###</textarea>
+						</div>
+<!--대댓글작성일,추천,비추천-->
+						<div class="replydate col-lg-2">
+							<label class="col-form-label">
+								<small><fmt:formatDate pattern="yyyy/MM/dd HH:mm:ss" value="${artcl.writeDate }"/></small>
+							</label><br>
+							<small>
+								<span id="replyLike" onclick="updateReplLike()"><i class="fas fa-thumbs-up"></i> 추천 </span>0 | 
+								<span id="replyHate" onclick="updateReplHate()"><i class="fas fa-thumbs-down"></i> 비추천</span>0
+							</small>
+						</div>
+					</div>
+					</li>
+				</ul>
+			</li>
+		</ul>
+<!--댓글버튼-->
+	<hr>
+	<div class="form-group row">
+		<label class="col-sm-2 col-form-label"><i class="fa fa-comment"></i> 댓글</label>
+		<div class="col-sm-10">
+			<textarea class="form-control" rows="3" name="replyContent"><c:out value="댓글을 작성합니다."/></textarea>
+			<button type="submit" class="btn btn-primary btn-block" onclick="emdfhr()">댓글등록</button>
+		</div>
+	</div>
+<!--/댓글버튼-->
+	</div>
+</div>
+<!-- 댓글 달기 스크립트 -->
+	<script>
+    function emdfhr(){
+        console.log('댓글등록');
+        var replyul = document.querySelector(".replyul");
+        var str = "";
+        str += '<hr><li>';
+        str += '<div class="row">';
+        str += '<div class="replyer col-lg-2"><label class="col-form-label"><i class="fas fa-user"></i>&nbsp;&nbsp;';
+        str += '댓글 작성자를 출력하는 c태그 선언';
+        str +='</label></div>';
+        str += '<div class="replycontent col-lg-8"><textarea class="form-control" name="replyContent" rows="1" readonly onclick="showModal();">';
+        str += '댓글 내용 출력하는 c태그 선언';
+        str += '</textarea></div>';
+        str += '<div class="replydate col-lg-2"><label class="col-form-label"><small>';
+       	str += '댓글 작성일을 출력하는 c태그 선언';
+       	str += '</small></label><br>';
+        str += '<small><span id="replyLike" onclick="updateReplLike()"><i class="fas fa-thumbs-up"></i> 추천 </span>0 | <span id="replyHate" onclick="updateReplHate()"><i class="fas fa-thumbs-down"></i> 비추천</span>0</small>';
+        str += '</div></div>';
 
+        replyul.innerHTML += str;
+    }
+	</script>
+<!-- 대댓글 달기 스크립트 -->
+	<script>
+    function eoeotrmf(){
+        var rerepl = document.querySelector('li.replyno ul');
+        console.log('대댓글 생성');
+        var str = "";
+        str += '<li>';
+        str += '<div class="row">';
+        str += '<div class="replyer col-lg-2"><i class="fas fa-angle-right"></i>&nbsp;&nbsp;<label class="col-form-label"><i class="fas fa-user"></i>&nbsp;';
+        str += '댓글 작성자를 출력하는 c태그 선언';
+        str += '</label></div>';
+        str += '<div class="replycontent col-lg-8"><textarea class="form-control" name="replyContent" rows="1" readonly onclick="showModal();">';
+        str += '댓글 내용 출력하는 c태그 선언';
+        str += '</textarea></div>';
+        str += '<div class="replydate col-lg-2">';
+        str += '<label class="col-form-label"><small>';
+        str += '댓글 작성일을 출력하는 c태그 선언';
+        str += '</small></label><br>';
+        str += '<small><span id="replyLike" onclick="updateReplLike()"><i class="fas fa-thumbs-up"></i> 추천 </span>0 | <span id="replyHate" onclick="updateReplHate()"><i class="fas fa-thumbs-down"></i> 비추천</span>0</small>';
+        str += '</div>';
+        str += '</div>';
+        str += '</li>';
 
-<ul>
-    <li>
-<!--대댓글 영역-->            
-<div class="form-group row">
-<label class="col-sm-2 col-form-label">ㄴ <i class="fas fa-user"></i> 댓글러(replyer)</label>
-<!-- <div class="col-sm-1"></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
-<div class="col-sm-8">
-<textarea class="form-control" name="replyReContent" rows="1" readonly onclick="showModalInReReply();">댓글 내용을 표시합니다. 클릭하면 모달창으로 대댓글을 달거나 추천, 비추천 기능을 넣습니다.</textarea>
-</div>   
-<div class="col-sm-2 px-5 i-thumbs">
-2019/11/11 23:13:13
-<small class="i-thumbs"><span onclick="alert('추천');"><i class="fas fa-thumbs-up"></i> 추천</span> 0 | <span onclick="alert('비추천');"><i class="fas fa-thumbs-down"></i> 비추천</span> -0</small>
-</div>
-</div>
-<!--/대댓글 영역-->
-</li>
-</ul>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label"><i class="fa fa-comment"></i> 댓글</label>
-                <div class="col-sm-10">
-                <textarea class="form-control" rows="3" name="replyContent"><c:out value="댓글을 작성합니다."/></textarea>
-                <button type="submit" class="btn btn-primary btn-block">댓글등록</button>
-                </div>
-            </div>
-        </div>
-        <div class="oanel-body">
-            <ul class="chat">
-            </ul>
-        </div>
-        <div class="panel-footer">
-        </div>
-    </div>
-    <!--//댓글영역 끝-->
-</div>
+        rerepl.innerHTML += str;
+        $('.modal').modal('hide');
+    }
+	</script>
 
 <!--모달창-->
 <div class="modal">
@@ -248,8 +320,11 @@ $(document).ready(function() {
 		var inputBno = $("input[name='bno]").clone();
 		var inputPageNo = $("input[name='pageNo']").clone();
 		var inputPageSize = $("input[name='pageSize']").clone();
+		var inputKey = $("input[name='key']").clone();
+		var inputWord = $("input[name='word']").clone();
 		
 		pageForm.append(inputBno);
+		
 		pageForm.submit();
 	});
 });

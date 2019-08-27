@@ -11,9 +11,8 @@ public class Criteria {
 	public String[] getKeyArr() {
 		/*검색 조건이 설정되지 않았다면 새로운 스트링배열을 만들고
 		설정 되어있다면 ""를 기준으로 조건들을 배열 시키고 리턴 해준다.*/
-		String[] selectedKey = key == null ? new String[] {} : key.split("");
 		
-		return selectedKey;
+		return key == null ? new String[] {} : key.split("");
 	}
 	
 	public Criteria() {

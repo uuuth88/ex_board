@@ -23,6 +23,7 @@ function showModalInReReply(){
 function createReplyBtn(){
     btnNode4.setAttribute("class","btn btn-success");
     btnNode4.setAttribute("type","button");
+    btnNode4.setAttribute("onclick", "eoeotrmf()");
     btnNode4.appendChild(replyTextNode);
     modalFooter.appendChild(btnNode4);
 }

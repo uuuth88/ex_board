@@ -37,10 +37,10 @@
 	
 	<select id="selectList" resultMap="boardMap">
 	<![CDATA[
-		select BNO, TITLE, CONTENT, WRITE_DATE, NICKNAME
+		select BNO, TITLE, CONTENT, WRITE_DATE, MODIFY_DATE, VIEW_CNT, LIKE_CNT, HATE_CNT, RPL_CNT, NICKNAME
 		from (
 			select
-				rownum rn, b.BNO, b.TITLE, b.CONTENT, b.WRITE_DATE, m.NICKNAME
+				rownum rn, b.BNO, b.TITLE, b.CONTENT, b.WRITE_DATE, b.MODIFY_DATE, b.VIEW_CNT, b.LIKE_CNT, b.HATE_CNT, b.RPL_CNT, m.NICKNAME
 			from tbl_board b left join tbl_member m on b.WRITER = m.EMAIL
 			where 
 	]]>
