@@ -30,6 +30,7 @@
 			<list>
 				<value>classpath:com/uth/mapper/BoardMapper.xml</value>
 				<value>classpath:com/uth/mapper/MemberMapper.xml</value>
+				<value>classpath:com/uth/mapper/ReplyMapper.xml</value>
 			</list>
 		</property>
 	</bean>	

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.uth.mapper.ReplyMapper">
+
+	<resultMap id="replyMap" type="replyVO">
+        <result property="rno" column="RNO" />
+		<result property="bno" column="BNO" />
+        <result property="rplContent" column="RPL_CONTENT" />
+        <result property="writer" column="WRITER" />
+        <result property="rplDate" column="RPL_DATE" />
+        <result property="rplModify" column="RPL_MODIFY" />
+        <result property="rplLike" column="RPL_LIKE" />
+        <result property="rplHate" column="RPL_HATE" />
+	</resultMap> 
+	
+	<insert id="insert">
+		insert into tbl_reply(RNO, BNO, RPL_CONTENT, WRITER)
+		values(seq_reply.nextval, #{bno}, #{rplContent}, #{writer})
+	</insert>
+</mapper>

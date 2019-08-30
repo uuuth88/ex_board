@@ -17,6 +17,8 @@ DROP TABLE tbl_file
 /* 시퀀스 */
 DROP SEQUENCE seq_board;
 CREATE SEQUENCE seq_board;
+DROP SEQUENCE seq_reply;
+CREATE SEQUENCE seq_reply;
 
 /* 글 */
 CREATE TABLE tbl_board (
@@ -98,16 +100,14 @@ COMMENT ON COLUMN tbl_reply.RPL_HATE IS '댓글비추천수';
 
 CREATE UNIQUE INDEX PK_tbl_reply
 	ON tbl_reply (
-		RNO ASC,
-		BNO ASC
+		RNO ASC
 	);
 
 ALTER TABLE tbl_reply
 	ADD
 		CONSTRAINT PK_tbl_reply
 		PRIMARY KEY (
-			RNO,
-			BNO
+			RNO
 		);
 
 /* 회원 */
