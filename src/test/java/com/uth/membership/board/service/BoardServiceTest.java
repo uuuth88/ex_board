@@ -30,7 +30,7 @@ public class BoardServiceTest {
 //		BoardVO vo = new BoardVO();
 //		vo.setTitle("BoardService테스트");
 //		vo.setContent("BoardService테스트");
-//		vo.setWriter("test01@uth.com");
+//		vo.setWriter("tester@uth.com");
 //		
 //		service.writeArticle(vo);
 //		
@@ -55,13 +55,13 @@ public class BoardServiceTest {
 //		list.forEach(board -> log.info(board));
 //	}
 //	검색어 처리 테스트
-	@Test
-	public void test() {
-		Criteria cri = new Criteria();
-		cri.setKey("C");
-		cri.setWord("처리");
-		
-		List<BoardVO> list = service.getList(cri);
-		list.forEach(board -> log.info(board));
-	}
+//	@Test
+//	public void test() {
+//		Criteria cri = new Criteria();
+//		cri.setKey("C");
+//		cri.setWord("처리");
+//		
+//		List<BoardVO> list = service.getList(cri);
+//		list.forEach(board -> log.info(board));
+//	}
 }
