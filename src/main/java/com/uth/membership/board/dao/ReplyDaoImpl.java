@@ -1,5 +1,7 @@
 package com.uth.membership.board.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -16,6 +18,16 @@ public class ReplyDaoImpl implements ReplyDao {
 	@Override
 	public int insert(ReplyVO vo) {
 		return ss.insert(NAMESPACE+".insert", vo);
+	}
+
+	@Override
+	public List<ReplyVO> replyList(int bno) {
+		return ss.selectList(NAMESPACE+".replyList", bno);
+	}
+
+	@Override
+	public int getReplyCount(int bno) {
+		return ss.selectOne(NAMESPACE+".getReplyCount", bno);
 	}
 
 }

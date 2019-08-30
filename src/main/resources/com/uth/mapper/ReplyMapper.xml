@@ -17,4 +17,24 @@
 		insert into tbl_reply(RNO, BNO, RPL_CONTENT, WRITER)
 		values(seq_reply.nextval, #{bno}, #{rplContent}, #{writer})
 	</insert>
+	
+	<select id="replyList" resultMap="replyMap">
+		select RNO, BNO, RPL_CONTENT, WRITER, RPL_DATE, RPL_MODIFY, RPL_LIKE, RPL_HATE
+		from tbl_reply
+		where BNO = #{bno}
+	</select>
+	
+	<!-- 게시물 당 댓글 수 구하는 쿼리 -->
+	<select id="getReplyCount" resultType="int">
+		select count(RNO)
+		from tbl_reply
+		where BNO = #{bno}
+	</select>
+	<!-- 댓글 등록 후 tbl_board 테이블의 댓글 수 컬럼 업데이트 -->
+	<update id="updateRplCnt" parameterType="int">
+		update tbl_board b
+		set b.RPL_CNT = (select count(RNO) from tbl_reply where bno=#{bno})
+		where b.bno = #{bno}
+	</update>
+
 </mapper>

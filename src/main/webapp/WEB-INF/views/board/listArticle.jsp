@@ -41,7 +41,12 @@
               <tr class="col-sm-12">
                 <td scope="row"><c:out value="${article.bno }"/></td>
                 <td class="col-sm-6">
-                  <a class="getArticle" href="<c:out value='${article.bno }'/>" id="title"><c:out value="${article.title }"/></a> 
+                  <a class="getArticle" href="<c:out value='${article.bno }'/>" id="title">
+                  	<c:out value="${article.title }"/>&nbsp;
+                  	<c:if test="${article.rplCnt ne 0 }">
+	                  	<small><b>[&nbsp;<c:out value="${article.rplCnt }"/>&nbsp;]</b></small>
+                  	</c:if>
+                  </a> 
                 </td>
                 <td class="col-sm-2"><c:out value="${member.nickname}"/></td>
                 <td class="col-sm-2"><fmt:formatDate pattern="yyyy/MM/dd" value="${article.writeDate }"/></td>
