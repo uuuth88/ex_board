@@ -13,11 +13,13 @@
         <result property="rplHate" column="RPL_HATE" />
 	</resultMap> 
 	
+<!-- 댓글 등록 -->	
 	<insert id="insert">
 		insert into tbl_reply(RNO, BNO, RPL_CONTENT, WRITER)
 		values(seq_reply.nextval, #{bno}, #{rplContent}, #{writer})
 	</insert>
-	
+<!-- /댓글 등록 -->	
+		
 	<select id="replyList" resultMap="replyMap">
 		select RNO, BNO, RPL_CONTENT, WRITER, RPL_DATE, RPL_MODIFY, RPL_LIKE, RPL_HATE
 		from tbl_reply
@@ -30,11 +32,16 @@
 		from tbl_reply
 		where BNO = #{bno}
 	</select>
-	<!-- 댓글 등록 후 tbl_board 테이블의 댓글 수 컬럼 업데이트 -->
+
+	<delete id="deleteReply" parameterType="int">
+		delete from tbl_reply
+		where rno = #{rno}
+	</delete>
+	
+	<!-- 댓글 등록,삭제 후 tbl_board 테이블의 댓글 수 컬럼 업데이트 -->
 	<update id="updateRplCnt" parameterType="int">
 		update tbl_board b
 		set b.RPL_CNT = (select count(RNO) from tbl_reply where bno=#{bno})
 		where b.bno = #{bno}
-	</update>
-
+	</update>	
 </mapper>

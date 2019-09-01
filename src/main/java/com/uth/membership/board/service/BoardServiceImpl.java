@@ -59,5 +59,4 @@ public class BoardServiceImpl implements BoardService {
 		return dao.deleteArticle(bno);
 	}
 
-	
 }

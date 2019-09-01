@@ -39,20 +39,19 @@
 	<![CDATA[
 		select BNO, TITLE, CONTENT, WRITE_DATE, MODIFY_DATE, VIEW_CNT, LIKE_CNT, HATE_CNT, RPL_CNT, NICKNAME
 		from (
-			select
+			select /*+INDEX_DESC (b PK_TBL_BOARD) */
 				rownum rn, b.BNO, b.TITLE, b.CONTENT, b.WRITE_DATE, b.MODIFY_DATE, b.VIEW_CNT, b.LIKE_CNT, b.HATE_CNT, b.RPL_CNT, m.NICKNAME
-			from tbl_board b left join tbl_member m on b.WRITER = m.EMAIL
+			from TBL_BOARD b left join TBL_MEMBER m on b.WRITER = m.EMAIL
 			where 
 	]]>
 	<include refid="cri"></include>
 	<![CDATA[
 			rownum <= #{pageNo} * #{pageSize}
-			order by bno desc
 			)
 		where rn > (#{pageNo}-1) * #{pageSize}
 	]]>				
 	</select>
-	
+		
 	<select id="read" resultMap="boardMap">
 		select BNO, TITLE, CONTENT, WRITE_DATE, MODIFY_DATE, LIKE_CNT, HATE_CNT, WRITER
 		from tbl_board

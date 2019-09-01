@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.uth.membership.board.model.ReplyVO;
+
 @Repository
 public class ReplyDaoImpl implements ReplyDao {
 	
@@ -30,4 +31,13 @@ public class ReplyDaoImpl implements ReplyDao {
 		return ss.selectOne(NAMESPACE+".getReplyCount", bno);
 	}
 
+	@Override
+	public int delete(int rno) {
+		return ss.delete(NAMESPACE+".deleteReply", rno);
+	}
+
+	@Override
+	public void updateRplCnt(int bno) {
+		ss.update(NAMESPACE+".updateRplCnt", bno);
+	}
 }

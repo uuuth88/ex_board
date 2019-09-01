@@ -7,5 +7,10 @@ import com.uth.membership.board.model.ReplyVO;
 
 public interface ReplyService {
 	public int insert(ReplyVO vo);
+//	댓글 개수 업데이트
+	public void updateRplCnt(int bno);
 	public ReplyPageVO replyList(@Param("bno") int bno);
+	public int delete(int rno);
 }
+	
+	

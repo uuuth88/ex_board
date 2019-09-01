@@ -61,7 +61,5 @@ public class BoardDaoImpl implements BoardDao {
 	public int deleteArticle(int bno) {
 		return ss.delete(NAMESPACE+".delete", bno);
 	}
-
-
 	
 }
