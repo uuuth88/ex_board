@@ -37,10 +37,10 @@
 	
 	<select id="selectList" resultMap="boardMap">
 	<![CDATA[
-		select BNO, TITLE, CONTENT, WRITE_DATE, MODIFY_DATE, VIEW_CNT, LIKE_CNT, HATE_CNT, RPL_CNT, NICKNAME
+		select BNO, TITLE, CONTENT, WRITE_DATE, MODIFY_DATE, VIEW_CNT, LIKE_CNT, HATE_CNT, RPL_CNT, nickname
 		from (
 			select /*+INDEX_DESC (b PK_TBL_BOARD) */
-				rownum rn, b.BNO, b.TITLE, b.CONTENT, b.WRITE_DATE, b.MODIFY_DATE, b.VIEW_CNT, b.LIKE_CNT, b.HATE_CNT, b.RPL_CNT, m.NICKNAME
+				rownum rn, b.BNO, b.TITLE, b.CONTENT, b.WRITE_DATE, b.MODIFY_DATE, b.VIEW_CNT, b.LIKE_CNT, b.HATE_CNT, b.RPL_CNT, m.nickname
 			from TBL_BOARD b left join TBL_MEMBER m on b.WRITER = m.EMAIL
 			where 
 	]]>
@@ -53,8 +53,8 @@
 	</select>
 		
 	<select id="read" resultMap="boardMap">
-		select BNO, TITLE, CONTENT, WRITE_DATE, MODIFY_DATE, LIKE_CNT, HATE_CNT, WRITER
-		from tbl_board
+		select BNO, TITLE, CONTENT, WRITE_DATE, MODIFY_DATE, LIKE_CNT, HATE_CNT, nickname
+		from tbl_board b left join TBL_MEMBER m on b.WRITER = m.EMAIL
 		where bno = #{bno}
 	</select>
 	

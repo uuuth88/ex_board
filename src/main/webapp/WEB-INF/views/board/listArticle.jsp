@@ -24,7 +24,7 @@
         }
     </style>    
     <div class="container board-container my-5 mx-auto">   
-    <c:set var="member" value="${loginmember }"/>  
+<%--     <c:set var="member" value="${loginmember }"/>   --%>
         <table class="table table-hover">
             <thead>
               <tr>
@@ -48,7 +48,7 @@
                   	</c:if>
                   </a> 
                 </td>
-                <td class="col-sm-2"><c:out value="${member.nickname}"/></td>
+                <td class="col-sm-2"><c:out value="${article.nickname}"/></td>
                 <td class="col-sm-2"><fmt:formatDate pattern="yyyy/MM/dd" value="${article.writeDate }"/></td>
                 <td class="col-sm-1"><c:out value="${article.viewCnt }"/></td>
                 <td class="col-sm-1"><c:out value="${article.likeCnt-article.hateCnt }"/></td>
@@ -105,6 +105,7 @@
              </form>
         </div>
     </div>
+
 
 
 <!--  기능, 함수들  -->

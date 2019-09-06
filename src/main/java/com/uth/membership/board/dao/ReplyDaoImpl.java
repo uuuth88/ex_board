@@ -20,7 +20,7 @@ public class ReplyDaoImpl implements ReplyDao {
 	public int insert(ReplyVO vo) {
 		return ss.insert(NAMESPACE+".insert", vo);
 	}
-
+//	댓글 리스트	
 	@Override
 	public List<ReplyVO> replyList(int bno) {
 		return ss.selectList(NAMESPACE+".replyList", bno);

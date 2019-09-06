@@ -79,5 +79,14 @@ public class BoardVO {
 	public void setWriter(String writer) {
 		this.writer = writer;
 	}
+
+//	글 작성자 가져오기
+	private String nickname;
 	
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
 }

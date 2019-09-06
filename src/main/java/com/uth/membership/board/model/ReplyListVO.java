@@ -2,11 +2,11 @@ package com.uth.membership.board.model;
 
 import java.util.List;
 
-public class ReplyPageVO {
+public class ReplyListVO {
 	private int rplCnt;
 	private List<ReplyVO> rplList;
 	
-	public ReplyPageVO(int rplCnt, List<ReplyVO> rplList) {
+	public ReplyListVO(int rplCnt, List<ReplyVO> rplList) {
 		this.rplCnt = rplCnt;
 		this.rplList = rplList;
 	}

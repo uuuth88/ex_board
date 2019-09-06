@@ -36,7 +36,7 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">작성자</label>
                 <div class="col-sm-10">
-                <input class="form-control" name="writer" value='<c:out value="${loginmember.nickname }" />' disabled>
+                <input class="form-control" name="writer" value='<c:out value="${artcl.nickname }" />' disabled>
                 </div>
             </div> 
             <div class="form-group row">
@@ -94,59 +94,59 @@
 <!-- 댓글 영역 -->
 <div class="row">
 	<div class="col-lg-12 replyDiv">
-		<ul class="replyul">
-			<li class="replyno">
-				<div class="row">
-<!--댓글작성자-->    
-					<div class="replyer col-lg-2">
-						<label class="col-form-label"><i class="fas fa-user"></i>&nbsp;&nbsp;
-							<c:out value="${loginmember.nickname }" />
-						</label>
-					</div>
-<!--댓글 내용-->
-					<div class="replycontent col-lg-8">
-						<textarea class="form-control" name="replyContent" rows="1" readonly onclick="showModal();">###</textarea>
-					</div>
-<!--댓글작성일,추천,비추천-->
-					<div class="replydate col-lg-2">
-						<label class="col-form-label"><small>
-							<fmt:formatDate pattern="yyyy/MM/dd HH:mm:ss" value="${artcl.writeDate }"/>
-						</small></label><br>
-						<small>
-							<span id="replyLike" onclick="updateReplLike()"><i class="fas fa-thumbs-up"></i> 추천 </span>0 | 
-							<span id="replyHate" onclick="updateReplHate()"><i class="fas fa-thumbs-down"></i> 비추천</span>0
-						</small>
-					</div>
-				</div>
-				<br>
+		<ul class="replyul"><span>댓글을 달아주세요!</span>
+<!-- 			<li class="replyno"> -->
+<!-- 				<div class="row"> -->
+<!-- <!--댓글작성자-->     
+<!-- 					<div class="replyer col-lg-2"> -->
+<!-- 						<label class="col-form-label"><i class="fas fa-user"></i>&nbsp;&nbsp; -->
+<%-- 							<c:out value="${loginmember.nickname }" /> --%>
+<!-- 						</label> -->
+<!-- 					</div> -->
+<!-- <!--댓글 내용-->
+<!-- 					<div class="replycontent col-lg-8"> -->
+<!-- 						<textarea class="form-control" name="replyContent" rows="1" readonly onclick="showModal();">###</textarea> -->
+<!-- 					</div> -->
+<!-- <!--댓글작성일,추천,비추천-->
+<!-- 					<div class="replydate col-lg-2"> -->
+<!-- 						<label class="col-form-label"><small> -->
+<%-- 							<fmt:formatDate pattern="yyyy/MM/dd HH:mm:ss" value="${artcl.writeDate }"/> --%>
+<!-- 						</small></label><br> -->
+<!-- 						<small> -->
+<!-- 							<span id="replyLike" onclick="updateReplLike()"><i class="fas fa-thumbs-up"></i> 추천 </span>0 |  -->
+<!-- 							<span id="replyHate" onclick="updateReplHate()"><i class="fas fa-thumbs-down"></i> 비추천</span>0 -->
+<!-- 						</small> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 				<br> -->
 <!--대댓글-->   
-				<ul>
-					<li>
-					<div class="row">
-<!--대댓글작성자-->    
-						<div class="replyer col-lg-2"><i class="fas fa-angle-right"></i>&nbsp;&nbsp;
-							<label class="col-form-label"><i class="fas fa-user"></i>&nbsp;
-								<c:out value="${loginmember.nickname }" />
-							</label>
-						</div>
-<!--대댓글 내용-->
-						<div class="replycontent col-lg-8">
-							<textarea class="form-control" name="replyContent" rows="1" readonly onclick="showModal();">###</textarea>
-						</div>
-<!--대댓글작성일,추천,비추천-->
-						<div class="replydate col-lg-2">
-							<label class="col-form-label">
-								<small><fmt:formatDate pattern="yyyy/MM/dd HH:mm:ss" value="${artcl.writeDate }"/></small>
-							</label><br>
-							<small>
-								<span id="replyLike" onclick="updateReplLike()"><i class="fas fa-thumbs-up"></i> 추천 </span>0 | 
-								<span id="replyHate" onclick="updateReplHate()"><i class="fas fa-thumbs-down"></i> 비추천</span>0
-							</small>
-						</div>
-					</div>
-					</li>
-				</ul>
-			</li>
+<!-- 				<ul> -->
+<!-- 					<li> -->
+<!-- 					<div class="row"> -->
+<!-- <!--대댓글작성자-->     
+<!-- 						<div class="replyer col-lg-2"><i class="fas fa-angle-right"></i>&nbsp;&nbsp; -->
+<!-- 							<label class="col-form-label"><i class="fas fa-user"></i>&nbsp; -->
+<%-- 								<c:out value="${loginmember.nickname }" /> --%>
+<!-- 							</label> -->
+<!-- 						</div> -->
+<!-- <!--대댓글 내용-->
+<!-- 						<div class="replycontent col-lg-8"> -->
+<!-- 							<textarea class="form-control" name="replyContent" rows="1" readonly onclick="showModal();">###</textarea> -->
+<!-- 						</div> -->
+<!-- <!--대댓글작성일,추천,비추천 -->
+<!-- 						<div class="replydate col-lg-2"> -->
+<!-- 							<label class="col-form-label"> -->
+<%-- 								<small><fmt:formatDate pattern="yyyy/MM/dd HH:mm:ss" value="${artcl.writeDate }"/></small> --%>
+<!-- 							</label><br> -->
+<!-- 							<small> -->
+<!-- 								<span id="replyLike" onclick="updateReplLike()"><i class="fas fa-thumbs-up"></i> 추천 </span>0 |  -->
+<!-- 								<span id="replyHate" onclick="updateReplHate()"><i class="fas fa-thumbs-down"></i> 비추천</span>0 -->
+<!-- 							</small> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 					</li> -->
+<!-- 				</ul> -->
+<!-- 			</li> -->
 		</ul>
 <!--댓글버튼-->
 	<hr>
@@ -166,7 +166,7 @@
         console.log('댓글등록');
         var replyul = document.querySelector(".replyul");
         var str = "";
-        str += '<hr><li>';
+        str += '<hr><li data-rno="">';
         str += '<div class="row">';
         str += '<div class="replyer col-lg-2"><label class="col-form-label"><i class="fas fa-user"></i>&nbsp;&nbsp;';
         str += '댓글 작성자를 출력하는 c태그 선언';
@@ -328,6 +328,45 @@ $(document).ready(function() {
 		pageForm.submit();
 	});
 });
+</script>
+<!-- 댓글 함수 -->
+<script type="text/javascript" src="${contextPath }/resources/js/reply.js"></script>
+<script>
+	console.log('----------');
+	
+	var bnoVal = '<c:out value="${artcl.bno }"/>';
+	var replyUL = $(".replyul");
+	
+	showList();
+	
+	function showList(){
+		replyService.getReplyList({bno:bnoVal},function(replyCnt,rplList){
+			console.log("댓글 수 :"+replyCnt);
+			console.log("댓글 목록 : "+rplList);
+			
+			var str = "";
+			if(rplList==null || rplList.length == 0){
+				return;
+			}
+			for(var i=0, len=rplList.length||0; i<len; i++){
+		        str += '<hr><li data-rno="'+rplList[i].rno+'">';
+		        str += '<div class="row">';
+		        str += '<div class="replyer col-lg-2"><label class="col-form-label"><i class="fas fa-user"></i>&nbsp;&nbsp;';
+		        str += rplList[i].nickname;
+		        str +='</label></div>';
+		        str += '<div class="replycontent col-lg-8"><textarea class="form-control" name="replyContent" rows="1" readonly onclick="showModal();">';
+		        str += rplList[i].rplContent;
+		        str += '</textarea></div>';
+		        str += '<div class="replydate col-lg-2"><label class="col-form-label"><small>';
+		       	str += rplList[i].rplDate;
+		       	str += '</small></label><br>';
+		        str += '<small><span id="replyLike" onclick="updateReplLike()"><i class="fas fa-thumbs-up"></i> 추천 </span>0 | <span id="replyHate" onclick="updateReplHate()"><i class="fas fa-thumbs-down"></i> 비추천</span>0</small>';
+		        str += '</div></div>';
+			}
+			replyUL.html(str);
+		});
+	}
+	
 </script>    
 </body>
 </html>

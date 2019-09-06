@@ -19,12 +19,17 @@
 		values(seq_reply.nextval, #{bno}, #{rplContent}, #{writer})
 	</insert>
 <!-- /댓글 등록 -->	
-		
+	
+	<!-- 댓글 조회 -->	
 	<select id="replyList" resultMap="replyMap">
-		select RNO, BNO, RPL_CONTENT, WRITER, RPL_DATE, RPL_MODIFY, RPL_LIKE, RPL_HATE
-		from tbl_reply
-		where BNO = #{bno}
+		select RNO, BNO, RPL_CONTENT, nickname, RPL_DATE, RPL_MODIFY, RPL_LIKE, RPL_HATE
+		from(	
+			select RNO, BNO, RPL_CONTENT, m.nickname, RPL_DATE, RPL_MODIFY, RPL_LIKE, RPL_HATE
+			from tbl_reply r left join tbl_member m on r.writer=m.email
+			where BNO = #{bno}
+			)
 	</select>
+	<!-- /댓글 조회 -->
 	
 	<!-- 게시물 당 댓글 수 구하는 쿼리 -->
 	<select id="getReplyCount" resultType="int">
