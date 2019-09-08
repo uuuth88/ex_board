@@ -6,6 +6,7 @@ import com.uth.membership.board.model.ReplyListVO;
 import com.uth.membership.board.model.ReplyVO;
 
 public interface ReplyService {
+//	댓글 등록	
 	public int insert(ReplyVO vo);
 //	댓글 개수 업데이트
 	public void updateRplCnt(int bno);

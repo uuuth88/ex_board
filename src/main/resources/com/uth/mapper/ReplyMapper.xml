@@ -28,6 +28,7 @@
 			from tbl_reply r left join tbl_member m on r.writer=m.email
 			where BNO = #{bno}
 			)
+		order by RNO asc	
 	</select>
 	<!-- /댓글 조회 -->
 	

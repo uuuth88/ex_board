@@ -153,8 +153,9 @@
 	<div class="form-group row">
 		<label class="col-sm-2 col-form-label"><i class="fa fa-comment"></i> 댓글</label>
 		<div class="col-sm-10">
-			<textarea class="form-control" rows="3" name="replyContent"><c:out value="댓글을 작성합니다."/></textarea>
-			<button type="submit" class="btn btn-primary btn-block" onclick="emdfhr()">댓글등록</button>
+			<input type="hidden" name="rplWriter" value='<c:out value="${loginmember.email }"/>'>
+			<textarea class="form-control"  rows="3" name="rplContent" placeholder="댓글 내용을 입력하세요."></textarea>
+			<button id="addRplBtn" type="submit" class="btn btn-primary btn-block">댓글등록</button>
 		</div>
 	</div>
 <!--/댓글버튼-->
@@ -162,26 +163,7 @@
 </div>
 <!-- 댓글 달기 스크립트 -->
 	<script>
-    function emdfhr(){
-        console.log('댓글등록');
-        var replyul = document.querySelector(".replyul");
-        var str = "";
-        str += '<hr><li data-rno="">';
-        str += '<div class="row">';
-        str += '<div class="replyer col-lg-2"><label class="col-form-label"><i class="fas fa-user"></i>&nbsp;&nbsp;';
-        str += '댓글 작성자를 출력하는 c태그 선언';
-        str +='</label></div>';
-        str += '<div class="replycontent col-lg-8"><textarea class="form-control" name="replyContent" rows="1" readonly onclick="showModal();">';
-        str += '댓글 내용 출력하는 c태그 선언';
-        str += '</textarea></div>';
-        str += '<div class="replydate col-lg-2"><label class="col-form-label"><small>';
-       	str += '댓글 작성일을 출력하는 c태그 선언';
-       	str += '</small></label><br>';
-        str += '<small><span id="replyLike" onclick="updateReplLike()"><i class="fas fa-thumbs-up"></i> 추천 </span>0 | <span id="replyHate" onclick="updateReplHate()"><i class="fas fa-thumbs-down"></i> 비추천</span>0</small>';
-        str += '</div></div>';
 
-        replyul.innerHTML += str;
-    }
 	</script>
 <!-- 대댓글 달기 스크립트 -->
 	<script>
@@ -332,17 +314,17 @@ $(document).ready(function() {
 <!-- 댓글 함수 -->
 <script type="text/javascript" src="${contextPath }/resources/js/reply.js"></script>
 <script>
+$(document).ready(function(){
+
 	console.log('----------');
 	
 	var bnoVal = '<c:out value="${artcl.bno }"/>';
 	var replyUL = $(".replyul");
 	
 	showList();
-	
+//	댓글 목록	
 	function showList(){
 		replyService.getReplyList({bno:bnoVal},function(replyCnt,rplList){
-			console.log("댓글 수 :"+replyCnt);
-			console.log("댓글 목록 : "+rplList);
 			
 			var str = "";
 			if(rplList==null || rplList.length == 0){
@@ -366,7 +348,24 @@ $(document).ready(function() {
 			replyUL.html(str);
 		});
 	}
+
+//	댓글 등록
+	var inputRplContent = document.querySelector("textarea[name='rplContent']");
+	var inputWriter = document.querySelector("input[name='rplWriter']");
 	
+	$("#addRplBtn").on("click", function(e){
+		var reply = {
+				bno:bnoVal, rplContent: inputRplContent.value, writer: inputWriter.value
+		};
+		
+		replyService.insertReply(reply, function(result){
+			alert('댓글 등록에 성공했습니다.');
+			showList();
+		});
+		
+	});
+
+})
 </script>    
 </body>
 </html>

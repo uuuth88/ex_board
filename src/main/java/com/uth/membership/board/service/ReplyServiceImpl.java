@@ -11,7 +11,8 @@ public class ReplyServiceImpl implements ReplyService {
 
 	@Autowired
 	private ReplyDao dao;
-	
+
+//	댓글 등록
 	@Override
 	public int insert(ReplyVO vo) {
 		return dao.insert(vo);
