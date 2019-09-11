@@ -15,4 +15,8 @@ public interface ReplyDao {
 	public int getReplyCount(int bno);
 //	댓글 삭제
 	public int delete(int rno);
+//	댓글 수정
+	public int modifyReply(ReplyVO vo);
+//	댓글 조회
+	public ReplyVO selectReply(int rno);
 }

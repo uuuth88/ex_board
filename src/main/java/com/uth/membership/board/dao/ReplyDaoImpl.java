@@ -40,4 +40,15 @@ public class ReplyDaoImpl implements ReplyDao {
 	public void updateRplCnt(int bno) {
 		ss.update(NAMESPACE+".updateRplCnt", bno);
 	}
+	
+//	댓글 수정	
+	@Override
+	public int modifyReply(ReplyVO vo) {
+		return ss.update(NAMESPACE+".modifyReply", vo);
+	}
+//	댓글 조회	
+	@Override
+	public ReplyVO selectReply(int rno) {
+		return ss.selectOne(NAMESPACE+".selectReply", rno);
+	}
 }

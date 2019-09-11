@@ -8,7 +8,7 @@ function showModal(){
     createDelBtn();
     createCloseBtn();
     //글쓴이가 아닐 경우 추천과 비추천 버튼 활성화 & 대댓글 쓰기 기능 구현  
-    createReplyBtn();
+    //createReplyBtn();
 }
 
 function showModalInReReply(){

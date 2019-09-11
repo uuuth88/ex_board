@@ -1,8 +1,7 @@
 package com.uth.membership.board.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 import com.uth.membership.board.model.ReplyListVO;
@@ -32,4 +31,20 @@ public class ReplyController {
 						: new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);//500
 	}
 	
+	@PutMapping(value="/modify/{rno}", consumes="application/json", produces="text/plain; charset=utf-8")
+	public ResponseEntity<String> modifyReply(@RequestBody ReplyVO vo, @PathVariable("rno") int rno){
+
+		vo.setRno(rno);
+		
+		log.info("수정할 댓글 번호는 : "+rno);
+		
+		return service.modifyReply(vo) == 1 ? new ResponseEntity<>("success", HttpStatus.OK)
+											: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
+	@GetMapping(value="/select/{rno}", produces="application/json; charset=utf-8")
+	public ResponseEntity<ReplyVO> selectReply(@PathVariable("rno")int rno){
+		log.info("조회할 댓글 번호는 : "+rno);
+		return new ResponseEntity<>(service.selectReply(rno), HttpStatus.OK);
+	}
 }

@@ -194,19 +194,19 @@
 	</script>
 
 <!--모달창-->
-<div class="modal">
+<div class="modal" id="rplModal">
     <div class="modal-dialog" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title">대댓글 달기</h5>
+            <h5 class="modal-title">댓글 달기</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
         </div>
         <div class="modal-body">
             <div class="form-group row">
-                    <div class="col-sm-12">
-                    <textarea class="form-control" rows="3" name="replyContent"><c:out value="댓글을 작성합니다."/></textarea>
+                <div class="col-sm-12">
+                    <textarea class="form-control" rows="3" name="modalContent"></textarea>
                 </div>
             </div>            
         </div>
@@ -320,7 +320,7 @@ $(document).ready(function(){
 	
 	var bnoVal = '<c:out value="${artcl.bno }"/>';
 	var replyUL = $(".replyul");
-	
+
 	showList();
 //	댓글 목록	
 	function showList(){
@@ -336,7 +336,7 @@ $(document).ready(function(){
 		        str += '<div class="replyer col-lg-2"><label class="col-form-label"><i class="fas fa-user"></i>&nbsp;&nbsp;';
 		        str += rplList[i].nickname;
 		        str +='</label></div>';
-		        str += '<div class="replycontent col-lg-8"><textarea class="form-control" name="replyContent" rows="1" readonly onclick="showModal();">';
+		        str += '<div class="replycontent col-lg-8"><textarea class="form-control" name="replyContent" rows="1" readonly>';
 		        str += rplList[i].rplContent;
 		        str += '</textarea></div>';
 		        str += '<div class="replydate col-lg-2"><label class="col-form-label"><small>';
@@ -365,6 +365,18 @@ $(document).ready(function(){
 		
 	});
 
+	var modal = $("#rplModal");
+	var modalContent = document.querySelector("textarea[name='modalContent']");
+//	댓글 조회
+	replyUL.on("click", "li", function(e){
+		var rno = $(this).data("rno");
+		replyService.selectReply(rno, function(reply){
+			console.log('selectReply를 실행합니다 >>> '+rno);
+			console.log("댓글 내용 : "+reply.rplContent);
+			modalContent.value = reply.rplContent;
+			showModal();
+		});
+	})
 })
 </script>    
 </body>

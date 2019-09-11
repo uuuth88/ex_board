@@ -33,5 +33,15 @@ public class ReplyServiceImpl implements ReplyService {
 	public void updateRplCnt(int bno) {
 		dao.updateRplCnt(bno);
 	}
+//	댓글 수정	
+	@Override
+	public int modifyReply(ReplyVO vo) {
+		return dao.modifyReply(vo);
+	}
+//	댓글 조회
+	@Override
+	public ReplyVO selectReply(int rno) {
+		return dao.selectReply(rno);
+	}
 
 }

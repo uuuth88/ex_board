@@ -13,14 +13,13 @@
         <result property="rplHate" column="RPL_HATE" />
 	</resultMap> 
 	
-<!-- 댓글 등록 -->	
+	<!-- 댓글 등록 -->	
 	<insert id="insert">
 		insert into tbl_reply(RNO, BNO, RPL_CONTENT, WRITER)
 		values(seq_reply.nextval, #{bno}, #{rplContent}, #{writer})
 	</insert>
-<!-- /댓글 등록 -->	
 	
-	<!-- 댓글 조회 -->	
+	<!-- 댓글 목록 -->	
 	<select id="replyList" resultMap="replyMap">
 		select RNO, BNO, RPL_CONTENT, nickname, RPL_DATE, RPL_MODIFY, RPL_LIKE, RPL_HATE
 		from(	
@@ -30,7 +29,6 @@
 			)
 		order by RNO asc	
 	</select>
-	<!-- /댓글 조회 -->
 	
 	<!-- 게시물 당 댓글 수 구하는 쿼리 -->
 	<select id="getReplyCount" resultType="int">
@@ -50,4 +48,18 @@
 		set b.RPL_CNT = (select count(RNO) from tbl_reply where bno=#{bno})
 		where b.bno = #{bno}
 	</update>	
+
+	<!-- 댓글 수정 쿼리 -->
+	<update id="modifyReply">
+		update tbl_reply
+		set RPL_CONTENT = #{rplContent}, RPL_MODIFY = sysdate
+		where RNO = #{rno}
+	</update>
+	
+	<!-- 댓글 조회-->
+	<select id="selectReply" resultMap="replyMap">
+		select r.*, m.nickname
+		from tbl_reply r left join tbl_member m on r.writer=m.email
+		where RNO = #{rno}
+	</select>
 </mapper>

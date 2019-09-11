@@ -13,6 +13,10 @@ public interface ReplyService {
 //	댓글 리스트		
 	public ReplyListVO replyList(@Param("bno") int bno);
 	public int delete(int rno);
+//	댓글 수정
+	public int modifyReply(ReplyVO vo);	
+//	댓글 조회
+	public ReplyVO selectReply(int rno);	
 }
 	
 	
