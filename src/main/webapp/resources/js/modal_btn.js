@@ -30,12 +30,14 @@ function createReplyBtn(){
 function createModBtn(){
     btnNode.setAttribute("class", "btn btn-info");
     btnNode.setAttribute("type","button");
+    btnNode.setAttribute("id","modalModBtn");
     btnNode.appendChild(modTextNode);
     modalFooter.appendChild(btnNode);
 }
 function createDelBtn(){
     btnNode2.setAttribute("class", "btn btn-primary");
     btnNode2.setAttribute("type","button");
+    btnNode2.setAttribute("id", "modalDelBtn");
     btnNode2.appendChild(delTextNode)
     modalFooter.appendChild(btnNode2);
 }

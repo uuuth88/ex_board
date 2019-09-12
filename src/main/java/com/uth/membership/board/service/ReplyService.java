@@ -12,8 +12,9 @@ public interface ReplyService {
 	public void updateRplCnt(int bno);
 //	댓글 리스트		
 	public ReplyListVO replyList(@Param("bno") int bno);
+//	댓글 삭제	
 	public int delete(int rno);
-//	댓글 수정
+//	댓글 수
 	public int modifyReply(ReplyVO vo);	
 //	댓글 조회
 	public ReplyVO selectReply(int rno);	

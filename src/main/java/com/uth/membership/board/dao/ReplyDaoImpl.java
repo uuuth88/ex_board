@@ -31,6 +31,7 @@ public class ReplyDaoImpl implements ReplyDao {
 		return ss.selectOne(NAMESPACE+".getReplyCount", bno);
 	}
 
+//	댓글 삭제
 	@Override
 	public int delete(int rno) {
 		return ss.delete(NAMESPACE+".deleteReply", rno);

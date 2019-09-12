@@ -375,8 +375,32 @@ $(document).ready(function(){
 			console.log("댓글 내용 : "+reply.rplContent);
 			modalContent.value = reply.rplContent;
 			showModal();
+
+//			댓글 수정 버튼 클릭시 아래 코드 실행			
+			$("#modalModBtn").click(function(e){
+				var reply = {rno: rno, rplContent: modalContent.value};
+				console.log("모달 댓글 번호 : "+reply.rno);
+				console.log("모달 댓글 내용 : "+reply.rplContent);
+				replyService.modifyReply(reply, function(result){
+					alert(result);
+					modal.modal("hide");
+					showList();
+				});
+			});
+			
+//			댓글 삭제 버튼 클릭시 아래 코드 실행
+			$("#modalDelBtn").click(function(e){
+				console.log("댓글 삭제");
+				replyService.deleteReply(rno, function(result){
+					alert(result);
+					modal.modal("hide");
+					showList();
+				});
+			});
+			
 		});
-	})
+	});
+
 })
 </script>    
 </body>

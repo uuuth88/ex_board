@@ -24,6 +24,7 @@ public class ReplyServiceImpl implements ReplyService {
 		return new ReplyListVO(dao.getReplyCount(bno), dao.replyList(bno));
 	}
 
+//	댓글 삭제	
 	@Override
 	public int delete(int rno) {
 		return dao.delete(rno);

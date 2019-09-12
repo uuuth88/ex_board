@@ -82,10 +82,29 @@ var replyService = (function(){
     		}
     	});
     }
+    
+    //댓글 삭제하는 함수
+    function deleteReply(rno, callback, error){
+    	$.ajax({
+    		type: 'delete',
+    		url: '/reply/delete/'+rno,
+    		success: function(result,status,xhr){
+    			if(callback){
+    				callback(result);
+    			}
+    		},
+    		error: function(xhr,status,er){
+    			if(error){
+    				error(er);
+    			}
+    		}
+    	});
+    }
     return {
     	getReplyList: getReplyList, 
     	insertReply: insertReply,
     	selectReply: selectReply,
-    	modifyReply: modifyReply
+    	modifyReply: modifyReply,
+    	deleteReply: deleteReply
 	};
 })();

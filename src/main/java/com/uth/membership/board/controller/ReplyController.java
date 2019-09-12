@@ -38,7 +38,7 @@ public class ReplyController {
 		
 		log.info("수정할 댓글 번호는 : "+rno);
 		
-		return service.modifyReply(vo) == 1 ? new ResponseEntity<>("success", HttpStatus.OK)
+		return service.modifyReply(vo) == 1 ? new ResponseEntity<>("댓글을 수정했습니다", HttpStatus.OK)
 											: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
@@ -46,5 +46,12 @@ public class ReplyController {
 	public ResponseEntity<ReplyVO> selectReply(@PathVariable("rno")int rno){
 		log.info("조회할 댓글 번호는 : "+rno);
 		return new ResponseEntity<>(service.selectReply(rno), HttpStatus.OK);
+	}
+	
+	@DeleteMapping(value="/delete/{rno}", produces="text/plain; charset=utf-8")
+	public ResponseEntity<String> deleteReply(@PathVariable("rno")int rno) {
+		log.info("삭제할 댓글 번호는 : "+rno);
+		return service.delete(rno) == 1 ? new ResponseEntity<>("댓글을 삭제했습니다.", HttpStatus.OK)
+										: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 }
