@@ -339,9 +339,9 @@ $(document).ready(function(){
 		        str += '<div class="replycontent col-lg-8"><textarea class="form-control" name="replyContent" rows="1" readonly>';
 		        str += rplList[i].rplContent;
 		        str += '</textarea></div>';
-		        str += '<div class="replydate col-lg-2"><label class="col-form-label"><small>';
-		       	str += rplList[i].rplDate;
-		       	str += '</small></label><br>';
+		        str += '<div class="replydate col-lg-2"><label class="col-form-label">';
+		       	str += replyService.dateFormat(rplList[i].rplDate);
+		       	str += '</label><br>';
 		        str += '<small><span id="replyLike" onclick="updateReplLike()"><i class="fas fa-thumbs-up"></i> 추천 </span>0 | <span id="replyHate" onclick="updateReplHate()"><i class="fas fa-thumbs-down"></i> 비추천</span>0</small>';
 		        str += '</div></div>';
 			}

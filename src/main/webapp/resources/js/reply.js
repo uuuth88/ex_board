@@ -100,11 +100,32 @@ var replyService = (function(){
     		}
     	});
     }
+    
+    //댓글 날짜 출력
+    function dateFormat(time){
+    	//현재 시간 구하기
+    	var curTime = new Date();
+    	//현재 시간 - 댓글 작성일의 값이 하루가 안된다면
+    	if(curTime-time < (1000 * 60 * 60 * 24)){
+    		var hh = new Date(time).getHours();
+    		var mi = new Date(time).getMinutes();
+    		var ss = new Date(time).getSeconds();
+    		
+    		return [(hh > 9 ? "":"0")+hh," : ",(mi > 9 ? "":"0")+mi," : ",(ss > 9 ? "":"0")+ss].join("");
+    	}else{
+        	var year = new Date(time).getFullYear();
+        	var month = new Date(time).getMonth()+1;
+        	var day = new Date(time).getDate();
+        	
+        	return [year," / ",(month>9 ? "":"0")+month," / ",(day > 9 ? "":"0")+day].join("");
+    	}
+    }
     return {
     	getReplyList: getReplyList, 
     	insertReply: insertReply,
     	selectReply: selectReply,
     	modifyReply: modifyReply,
-    	deleteReply: deleteReply
+    	deleteReply: deleteReply,
+    	dateFormat: dateFormat
 	};
 })();
