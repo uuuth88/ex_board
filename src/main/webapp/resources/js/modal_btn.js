@@ -2,21 +2,17 @@
  * 모달 버튼 생성 스크립트
  */
 function showModal(){
+	//댓글 작성자일 경우 수정과 삭제하기 버튼 활성화
     $(modal).modal("show");
-    //댓글 글쓴이일 경우 수정과 삭제하기 버튼 활성화
     createModBtn();
     createDelBtn();
     createCloseBtn();
-    //글쓴이가 아닐 경우 추천과 비추천 버튼 활성화 & 대댓글 쓰기 기능 구현  
-    //createReplyBtn();
 }
 
-function showModalInReReply(){
-    //대댓글 글쓴이일 경우 모달창은 수정하기와 삭제하기만 구현
-    //글쓴이가 아닐 경우 클릭 X 
+function reReplyModal(){
+    //댓글 작성자가 아닐 경우 댓글 달기 버튼 활성화
     $(modal).modal("show");
-    createModBtn();
-    createDelBtn();
+    createReplyBtn();
     createCloseBtn();
 }
 

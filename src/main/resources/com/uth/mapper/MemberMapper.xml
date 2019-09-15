@@ -12,7 +12,7 @@
 	<select id="getMember" resultMap="memberMap">
 		select *
 		from tbl_member
-		where email = 'tester@uth.com'
+		where email = 'test2@uth.com'
 	</select>
 </mapper>
 

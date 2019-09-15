@@ -51,7 +51,9 @@
                 <input class="form-control" name="modifydate" value='<fmt:formatDate pattern="yyyy/MM/dd HH:mm:ss" value="${artcl.modifyDate }"/>' disabled>
                 </div>
             </div>    
-            <!--작성자 이외의 화면-->                      
+            <!--작성자 이외의 화면-->
+<c:choose>
+	<c:when test="${artcl.writer ne loginmember.email || loginmember.email eq null}">
             <div class="form-group row">
                 <div class="col-sm-5"></div>
                 <div class="col-sm-2">
@@ -66,19 +68,29 @@
                 </div>
                 <div class="col-sm-5"></div>
             </div>
-
-            <!--글 작성자 화면-->
             <div class="form-group row">
+                <div class="mx-auto">
+                    <div class="btn-group mx-auto my-2" role="group" aria-label="Basic example">
+                       	<button type="button" class="btn btn-outline-secondary listBtn">목록으로</button>
+                    </div>
+                </div>
+            </div>            
+	</c:when>
+	<c:otherwise>
+            <!--글 작성자 화면-->
+            <div class="form-group row my-5">
                 <div class="col-sm-5"></div>
                 <div class="col-sm-3">
-                    <div class="btn-group mx-auto my-2" role="group" aria-label="Basic example">
+                    <div class="btn-group mx-auto" role="group" aria-label="Basic example">
                     	<button type="button" class="btn btn-primary modBtn">수정하기</button>
-                        <button type="button" class="btn btn-outline-secondary listBtn">목록으로</button>
-                        <button type="button" class="btn btn-outline-primary" onclick="alert('글을 삭제하시겠습니까?');">글 삭제</button>
+                       	<button type="button" class="btn btn-outline-secondary listBtn">목록으로</button>
+                       	<button type="button" class="btn btn-outline-primary" onclick="alert('글을 삭제하시겠습니까?');">글 삭제</button>
                     </div>
                 </div>
                 <div class="col-sm-4"></div>
             </div>            
+	</c:otherwise>            
+</c:choose>            
             <form id="pageForm" method="get" action="">
             	<input type="hidden" name="bno" value="<c:out value='${artcl.bno }'/>">
             	<input type="hidden" name="pageNo" value="<c:out value='${cri.pageNo }'/>">
@@ -95,58 +107,6 @@
 <div class="row">
 	<div class="col-lg-12 replyDiv">
 		<ul class="replyul"><span>댓글을 달아주세요!</span>
-<!-- 			<li class="replyno"> -->
-<!-- 				<div class="row"> -->
-<!-- <!--댓글작성자-->     
-<!-- 					<div class="replyer col-lg-2"> -->
-<!-- 						<label class="col-form-label"><i class="fas fa-user"></i>&nbsp;&nbsp; -->
-<%-- 							<c:out value="${loginmember.nickname }" /> --%>
-<!-- 						</label> -->
-<!-- 					</div> -->
-<!-- <!--댓글 내용-->
-<!-- 					<div class="replycontent col-lg-8"> -->
-<!-- 						<textarea class="form-control" name="replyContent" rows="1" readonly onclick="showModal();">###</textarea> -->
-<!-- 					</div> -->
-<!-- <!--댓글작성일,추천,비추천-->
-<!-- 					<div class="replydate col-lg-2"> -->
-<!-- 						<label class="col-form-label"><small> -->
-<%-- 							<fmt:formatDate pattern="yyyy/MM/dd HH:mm:ss" value="${artcl.writeDate }"/> --%>
-<!-- 						</small></label><br> -->
-<!-- 						<small> -->
-<!-- 							<span id="replyLike" onclick="updateReplLike()"><i class="fas fa-thumbs-up"></i> 추천 </span>0 |  -->
-<!-- 							<span id="replyHate" onclick="updateReplHate()"><i class="fas fa-thumbs-down"></i> 비추천</span>0 -->
-<!-- 						</small> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 				<br> -->
-<!--대댓글-->   
-<!-- 				<ul> -->
-<!-- 					<li> -->
-<!-- 					<div class="row"> -->
-<!-- <!--대댓글작성자-->     
-<!-- 						<div class="replyer col-lg-2"><i class="fas fa-angle-right"></i>&nbsp;&nbsp; -->
-<!-- 							<label class="col-form-label"><i class="fas fa-user"></i>&nbsp; -->
-<%-- 								<c:out value="${loginmember.nickname }" /> --%>
-<!-- 							</label> -->
-<!-- 						</div> -->
-<!-- <!--대댓글 내용-->
-<!-- 						<div class="replycontent col-lg-8"> -->
-<!-- 							<textarea class="form-control" name="replyContent" rows="1" readonly onclick="showModal();">###</textarea> -->
-<!-- 						</div> -->
-<!-- <!--대댓글작성일,추천,비추천 -->
-<!-- 						<div class="replydate col-lg-2"> -->
-<!-- 							<label class="col-form-label"> -->
-<%-- 								<small><fmt:formatDate pattern="yyyy/MM/dd HH:mm:ss" value="${artcl.writeDate }"/></small> --%>
-<!-- 							</label><br> -->
-<!-- 							<small> -->
-<!-- 								<span id="replyLike" onclick="updateReplLike()"><i class="fas fa-thumbs-up"></i> 추천 </span>0 |  -->
-<!-- 								<span id="replyHate" onclick="updateReplHate()"><i class="fas fa-thumbs-down"></i> 비추천</span>0 -->
-<!-- 							</small> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 					</li> -->
-<!-- 				</ul> -->
-<!-- 			</li> -->
 		</ul>
 <!--댓글버튼-->
 	<hr>
@@ -365,16 +325,24 @@ $(document).ready(function(){
 		
 	});
 
-	var modal = $("#rplModal");
+	//var modal = $("#rplModal");
 	var modalContent = document.querySelector("textarea[name='modalContent']");
+	var loginmember = '<c:out value="${loginmember.email}"/>';
 //	댓글 조회
 	replyUL.on("click", "li", function(e){
 		var rno = $(this).data("rno");
 		replyService.selectReply(rno, function(reply){
 			console.log('selectReply를 실행합니다 >>> '+rno);
 			console.log("댓글 내용 : "+reply.rplContent);
+			console.log("댓글 작성자 : "+reply.writer);
+			console.log("현재 사용자 : "+loginmember);
 			modalContent.value = reply.rplContent;
-			showModal();
+			if(loginmember == reply.writer){
+				showModal();
+			}else{
+				modalContent.value = '';
+				reReplyModal();
+			}
 
 //			댓글 수정 버튼 클릭시 아래 코드 실행			
 			$("#modalModBtn").click(function(e){
